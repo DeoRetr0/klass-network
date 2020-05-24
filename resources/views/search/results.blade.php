@@ -1,0 +1,28 @@
+@extends('templates.default')
+
+@section('conteudo')
+    <style>
+        body{
+            background-color: #212121;
+            color: white;
+        }
+        h3{
+            padding: 10px;
+        }
+        #resultados{
+            margin: 10px;
+        }
+    </style>
+    <h3>Resultados da busca para "{{ Request::input('query') }}"</h3>
+    @if(!$users->count())
+        <p>Não houve resultados.</p>
+    @else
+    <div id="resultados" class="row">
+        <div class="col-12">
+            @foreach($users as $user)
+                @include('user/partials/userblock')
+            @endforeach
+        </div>
+    </div>
+    @endif
+@stop
