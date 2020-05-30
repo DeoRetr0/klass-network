@@ -4,7 +4,7 @@
     <style>
         body{
             background-color: #212121;
-
+            color: whitesmoke;
         }
         .container{
             font-family: 'Josefin Sans', sans-serif;

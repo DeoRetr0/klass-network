@@ -32,6 +32,10 @@ class ProfileController extends Controller
             'sobrenome' => $request->input('sobrenome'),
             'localizacao'=>$request->input('localizacao'),
             'faculdade'=>$request->input('faculdade'),
+            'curso'=>$request->input('curso'),
+            'nasceuEm'=>$request->input('nasceuEm'),
+            'trabalho'=>$request->input('trabalho'),
+            'relacionamento'=>$request->input('relacionamento'),
         ]);
 
         return redirect()

@@ -23,9 +23,11 @@ class User extends Authenticatable
         'dataNascimento',
         'faculdade',
         'curso',
-//        'sobre',
-//        'personalidade',
+        'sobre',
+        'relacionamento',
         'localizacao',
+        'nasceuEm',
+        'trabalho',
     ];
 
     /**
@@ -46,6 +48,14 @@ class User extends Authenticatable
         return null;
     }
 
+    public function getSobre()
+    {
+        if($this->sobre)
+        {
+            return "{$this->sobre}";
+        }
+        return null;
+    }
 
 
     public function getAvatarUrl()

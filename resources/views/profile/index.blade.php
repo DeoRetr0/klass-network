@@ -48,20 +48,18 @@
                 <div class="row">
                     <div class="itens col-sm-12 col-lg-4">
                         <!-- BIO / SOBRE -->
-                        <form action="" id="sobre-info" method="POST">
-                            <div class="card">
+                        @if($user->getSobre() == '')
+                        @else
+                        <div class="card">
                                 <div class="card-header">
                                     Sobre
                                 </div>
                                 <div class="card-body">
-                                    <textarea style="width: 100%" name='sobre' id='sobre' rows='5'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores delectus ipsum modi natus nesciunt officiis omnis perspiciatis tenetur vitae. Aperiam architecto, aspernatur deserunt doloribus esse nam possimus quibusdam ullam!</textarea>
-                                </div>
-                                <div class='card-footer'>
-                                    <button type='submit' name='alterarBio' class='btn btn-success'>Alterar</button>
+                                    <p>{{$user->getSobre()}}</p>
                                 </div>
                             </div>
-                        </form>
-                        <!-- FIM DA BIO -->
+                        @endif
+                    <!-- FIM DA BIO -->
                         <br>
                         <!-- INFOMAÇÕES PESSOAIS -->
                         <div class='card'>
@@ -69,7 +67,26 @@
                                 Informações
                             </div>
                             <div class='card-body'>
-                                <p><i class="fas fa-home fa-lg"></i> {{$user->localizacao}}</p>
+                                @if($user->trabalho == '')
+                                @else
+                                    <p><i class="fas fa-briefcase fa-lg"></i> {{$user->trabalho}}</p>
+                                @endif
+                                @if($user->localizacao == '')
+                                @else
+                                    <p><i class="fas fa-home fa-lg"></i> {{$user->localizacao}}</p>
+                                @endif
+                                @if($user->nasceuEm == '')
+                                @else
+                                    <p><i class="fas fa-map-marker fa-lg"></i> {{$user->nasceuEm}}</p>
+                                @endif
+                                @if($user->relacionamento == '')
+                                @else
+                                    <p><i class="fas fa-heart fa-lg"></i></i> {{$user->relacionamento}}</p>
+                                @endif
+                                @if($user->dataNascimento == '')
+                                @else
+                                    <p><i class="fas fa-birthday-cake fa-lg"></i></i> {{$user->dataNascimento}}</p>
+                                @endif
                             </div>
                         </div>
                         <!-- FIM DAS INFORMAÇÕES -->
@@ -78,7 +95,7 @@
                         <div class='card'>
                             <div class='card-header'>
                                 Amigos
-                                <a href="{{route('profile.friends', ['email' =>$user->email])}}" style="float: right; color: black">mostrar todos</a>
+                                <a href="{{route('profile.friends', ['email' =>$user->email])}}" style="float: right; color: black">Mostrar todos</a>
                             </div>
                             <div class='card-body'>
                                 <p>@if(!$user->friends()->count())
@@ -120,7 +137,7 @@
                         </div>
                         <!-- FIM DE FAZER NOVA POSTAGEM -->
                         <br>
-                        <!-- POSTS FEITOS -->
+                    <!-- POSTS FEITOS -->
                         <div class="card">
                             <div class='card-header'>
                                 Posts feitos
