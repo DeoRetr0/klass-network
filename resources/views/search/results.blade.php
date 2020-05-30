@@ -21,6 +21,7 @@
         <div class="col-12">
             @foreach($users as $user)
                 @include('user/partials/userblock')
+                <br>
             @endforeach
         </div>
     </div>

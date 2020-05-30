@@ -50,11 +50,12 @@
                                 <label for="faculdade" class="control-label">Faculdade</label>
                                 <select class="form-control" name="faculdade" id="ie">
                                     {{$fac = DB::table('faculdades')->pluck('faculdade')}}
-                                    <option value="{{ Request::old('faculdade')?:Auth::user()->faculdade }}">{{ Request::old('faculdade')?:Auth::user()->faculdade }}</option>
+                                    <option value="">{{ Request::old('faculdade')?:Auth::user()->faculdade }}</option>
                                     @foreach($fac as $faculdade)
                                         <option value="{{$faculdade}}">{{$faculdade}}</option>
                                     @endforeach
-                                </select>                            </div>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

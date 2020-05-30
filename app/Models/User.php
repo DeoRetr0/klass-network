@@ -46,9 +46,17 @@ class User extends Authenticatable
         return null;
     }
 
+
+
     public function getAvatarUrl()
     {
-        return "https://www.gravatar.com/avatar/{{md5($this->email)}}?d=mm";
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+        return "https://s.gravatar.com/avatar/$hash?s=100&d=mm";
+    }
+    public function getAvatarUrlBasic()
+    {
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+        return "https://s.gravatar.com/avatar/$hash?s=61&d=mm";
     }
 
     public function friendsOfMine()
@@ -66,6 +74,45 @@ class User extends Authenticatable
         return $this->friendsOfMine()
             ->wherePivot('aceito', true)
             ->get()->merge($this->friendOf()->wherePivot('aceito', true)->get());
+    }
+
+    /**
+     * FRIEND REQUESTS handling
+     */
+    public function friendRequests()
+    {
+        return $this->friendsOfMine()->wherePivot('aceito', false)->get();
+    }
+
+    public function friendRequestsPending()
+    {
+        return $this->friendOf()->wherePivot('aceito', false)->get();
+    }
+
+    public function hasFriendRequestPending(User $user)
+    {
+        return (bool) $this->friendRequestsPending()->where('id', $user->id)->count();
+    }
+
+    public function hasFriendRequestReceived(User $user)
+    {
+        return (bool) $this->friendRequests()->where('id', $user->id)->count();
+    }
+
+    public function addFriend(User $user)
+    {
+        return $this->friendOf()->attach($user->id);
+    }
+
+    public function acceptFriendRequest(User $user)
+    {
+        return $this->friendRequests()->where('id', $user->id)->first()
+            ->pivot->update(['aceito' => true]);
+    }
+
+    public function isFriendsWith(User $user)
+    {
+        return (bool) $this->friends()->where('id', $user->id)->count();
     }
     /**
      * The attributes that should be cast to native types.

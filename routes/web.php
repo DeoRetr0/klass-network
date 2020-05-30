@@ -68,6 +68,11 @@ Route::get('/user/{email}', [
     'uses'=>'\App\Http\Controllers\ProfileController@getProfile',
     'as'=>'profile.index',
 ]);
+Route::get('/user/{email}/friends', [
+    'uses'=>'\App\Http\Controllers\FriendController@getFriends',
+    'as'=>'profile.friends',
+]);
+
 Route::get('/profile/edit', [
    'uses'=>'\App\Http\Controllers\ProfileController@getEdit',
     'as'=>'profile.edit',
@@ -75,5 +80,24 @@ Route::get('/profile/edit', [
 ]);
 Route::post('/profile/edit', [
     'uses'=>'\App\Http\Controllers\ProfileController@postEdit',
+    'middleware'=>['auth'],
+]);
+
+/*
+ * AMIGOS
+ */
+Route::get('/friends', [
+    'uses'=>'\App\Http\Controllers\FriendController@getIndex',
+    'as'=>'friends.index',
+    'middleware'=>['auth'],
+]);
+Route::get('/friends/add/{email}', [
+    'uses'=>'\App\Http\Controllers\FriendController@getAdd',
+    'as'=>'friends.add',
+    'middleware'=>['auth'],
+]);
+Route::get('/friends/accept/{email}', [
+    'uses'=>'\App\Http\Controllers\FriendController@getAccept',
+    'as'=>'friends.accept',
     'middleware'=>['auth'],
 ]);
