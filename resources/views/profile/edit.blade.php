@@ -1,13 +1,22 @@
-@extends('templates.default')
-
-@section('conteudo')
-    <style>
-        body {
-            background-color: #212121;
-            color: whitesmoke;
-        }
+ <style>
         #atualizarPerfil{
             padding: 10px;
+            background-color: #004d40;
+            width: fit-content;
+            margin: 50px auto;
+            color: white;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+        #atualizarPerfil h3{
+            text-align: center;
+        }
+        #salvar{
+            text-align: center;
+        }
+        #salvar a{
+            color: #212121;
+            width: fit-content;
+            margin: 0;
         }
         #conteudoAtualizar{
             margin-top: 20px;
@@ -16,10 +25,10 @@
     <div id="atualizarPerfil">
         <h3>Atualize suas informações</h3>
         <div id="conteudoAtualizar" class="row">
-            <div class="col-lg-6">
+            <div class="container">
                 <form class="form-vertical" method="POST" action="{{route('profile.edit')}}">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-6">
                             <div class="form-group {{$errors    ->has('nome')?'has-error':''}}">
                                 <label for="nome" class="control-label">Nome:</label>
                                 <input type="text" name="nome" class="form-control" id="nome" value="{{ Request::old('nome')?:Auth::user()->nome }}">
@@ -28,7 +37,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-6">
                             <div class="form-group {{$errors->has('sobrenome')?'has-error':''}}">
                                 <label for="sobrenome" class="control-label">Sobrenome:</label>
                                 <input type="text" name="sobrenome" class="form-control" id="sobrenome" value="{{ Request::old('sobrenome')?:Auth::user()->sobrenome }}">
@@ -39,13 +48,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="localizacao" class="control-label">Localização:</label>
                                 <input type="text" name="localizacao" class="form-control" id="localizacao" value="{{ Request::old('localizacao')?:Auth::user()->localizacao }}">
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="nasceuEm" class="control-label">Nasceu em:</label>
                                 <input type="text" name="nasceuEm" class="form-control" id="nasceuEm" value="{{ Request::old('nasceuEm')?:Auth::user()->nasceuEm }}">
@@ -53,7 +62,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="relacionamento" class="control-label">Relacionamento:</label>
                                 <select class="form-control" name="relacionamento">
@@ -65,7 +74,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="trabalho" class="control-label">Trabalho:</label>
                                 <input type="text" name="trabalho" class="form-control" id="trabalho" value="{{ Request::old('trabalho')?:Auth::user()->trabalho }}">
@@ -73,7 +82,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="faculdade" class="control-label">Faculdade:</label>
                                 <select class="form-control" name="faculdade" id="ie">
@@ -85,7 +94,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="curso" class="control-label">Curso:</label>
                                 <select class="form-control" name="curso" id="curso">
@@ -98,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div id="salvar" class="form-group">
                         <button type="submit" class="btn btn-light">Salvar</button>
                     </div>
                     <input type="hidden" name="_token" value="{{Session::token()}}">
@@ -106,4 +115,3 @@
             </div>
         </div>
     </div>
-@stop

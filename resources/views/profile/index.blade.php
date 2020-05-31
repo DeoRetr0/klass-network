@@ -23,23 +23,46 @@
         .card-body {
             color: #212121;
         }
+        #banner{
+            background-image: url("https://seeoutlook.com/wp-content/uploads/2018/09/FB-COVER.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            border: 1px white solid;
+            display: block;
+        }
+        #mudarBanner{
+            float: right;
+            padding-top: 10px;
+        }
+        .media{
+            width: 100%;
+            margin-top: 200px;
+            margin-bottom: 20px;
+        }
     </style>
     <div id="conteudoPerfil" class="row">
-        <div class="col-lg-5">
+        <div class="col">
             <!-- INFORMAÇÕES DO USUARIO -->
+            <div class="container-fluid" id="banner">
+                @if($user == Auth::user())
+                    <div id="mudarBanner">
+                        <button type="submit" class="btn btn-light">Mudar banner</button>
+                    </div>
+                @endif
             @include('user.partials.userblock')
-            <hr>
-            @if ( Auth::user()->hasFriendRequestPending($user) )
-                <p>Aguardando {{ $user->getName() }} aceitar seu pedido</p>
-            @elseif ( Auth::user()->hasFriendRequestReceived($user) )
-                <a href="{{ route('friends.accept', ['email' => $user->email]) }}" class="btn btn-primary">Aceitar
-                    pedido de amizade</a>
-            @elseif ( Auth::user()->isFriendsWith($user) )
-                <p>Você e {{ $user->getName() }} são amigos</p>
-            @elseif ( Auth::user()->id !== $user->id)
-                <a href="{{ route('friends.add', ['email' => $user->email]) }}" class="btn btn-primary">Adicionar
-                    amigo</a>
-            @endif
+                    @if ( Auth::user()->hasFriendRequestPending($user) )
+                        <p>Aguardando {{ $user->getName() }} aceitar seu pedido</p>
+                    @elseif ( Auth::user()->hasFriendRequestReceived($user) )
+                        <a href="{{ route('friends.accept', ['email' => $user->email]) }}" class="btn btn-primary">Aceitar
+                            pedido de amizade</a>
+                    @elseif ( Auth::user()->isFriendsWith($user) )
+                        <p>Você e {{ $user->getName() }} são amigos</p>
+                    @elseif ( Auth::user()->id !== $user->id)
+                        <a href="{{ route('friends.add', ['email' => $user->email]) }}" class="btn btn-success" style="margin-bottom: 10px">
+                            Adicionar amigo
+                        </a>
+                    @endif
+            </div>
         </div>
     </div>
     <div id="perfilFundo" class="container">
@@ -52,7 +75,7 @@
                         @else
                         <div class="card">
                                 <div class="card-header">
-                                    Sobre
+                                    <i class="fas fa-globe-americas"></i> Sobre
                                 </div>
                                 <div class="card-body">
                                     <p>{{$user->getSobre()}}</p>
@@ -63,8 +86,13 @@
                         <br>
                         <!-- INFOMAÇÕES PESSOAIS -->
                         <div class='card'>
-                            <div class='card-header'>
-                                Informações
+                            <div class='card-header' style="line-height: 35px">
+                                <i class="far fa-address-card"></i> Informações
+                                @if($user == Auth::user())
+                                    <button type="button" style="float: right;width: fit-content; color: black;padding: 5px" class="btn btn-light" data-toggle="modal" data-target="#exampleModal">
+                                        Editar
+                                    </button>
+                                @endif
                             </div>
                             <div class='card-body'>
                                 @if($user->trabalho == '')
@@ -85,8 +113,25 @@
                                 @endif
                                 @if($user->dataNascimento == '')
                                 @else
-                                    <p><i class="fas fa-birthday-cake fa-lg"></i></i> {{$user->dataNascimento}}</p>
+                                        @php
+                                            $original_date = "$user->dataNascimento";
+                                            $timestamp = strtotime($original_date);
+                                            $new_date = date("d/m/Y", $timestamp);
+                                                    echo '<p><i class="fas fa-birthday-cake fa-lg"></i></i> '.$new_date.'</p>'
+                                        @endphp
                                 @endif
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content" style="background-color: #004d40">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    @include('profile.edit')
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                         <!-- FIM DAS INFORMAÇÕES -->
@@ -94,7 +139,7 @@
                         <!-- AMIGOS -->
                         <div class='card'>
                             <div class='card-header'>
-                                Amigos
+                                <i class="fas fa-user-friends"></i> Amigos
                                 <a href="{{route('profile.friends', ['email' =>$user->email])}}" style="float: right; color: black">Mostrar todos</a>
                             </div>
                             <div class='card-body'>

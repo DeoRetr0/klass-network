@@ -18,7 +18,7 @@
         }
     </style>
     <div id="conteudoPerfil" class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-5" style="margin-top: 20px">
             <!-- INFORMAÇÕES DO USUARIO -->
             @include('user.partials.userblock')
             <hr>

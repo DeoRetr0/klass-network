@@ -17,10 +17,6 @@ class ProfileController extends Controller
             ->with('user', $user);
     }
 
-    public function getEdit(){
-        return view('profile.edit');
-    }
-
     public function postEdit(Request $request){
         $this->validate($request, [
             'nome'=>'alpha|max:30',
@@ -39,7 +35,7 @@ class ProfileController extends Controller
         ]);
 
         return redirect()
-            ->route('profile.edit')
+            ->route('profile.index', ['email'=>Auth::user()->email])
             ->with('info', 'Seu perfil foi atualizado!');
     }
 }

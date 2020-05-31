@@ -53,7 +53,6 @@
                          aria-expanded="false">{{Auth::user()->getName()  }}  </button>
                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                      <li><a class="dropdown-item" href="{{route('profile.index', ['email'=>Auth::user()->email])}}">Ver Perfil</a></li>
-                     <li><a class="dropdown-item" href="{{route('profile.edit')}}">Editar Perfil</a></li>
                      <li><a class="dropdown-item" href="#">Configurações</a></li>
                      <div class="dropdown-divider"></div>
                      <li><a class="dropdown-item" href="{{route('auth.signout')}}">Sair</a></li>
