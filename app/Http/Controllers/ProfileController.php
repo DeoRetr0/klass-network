@@ -13,8 +13,12 @@ class ProfileController extends Controller
         if (!$user){
             abort(404);
         }
+        $status = $user->status()->notReply()->get();
+
         return view('profile.index')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('status', $status)
+            ->with('authUserIsFriend', Auth::user()->isFriendsWith($user));
     }
 
     public function postEdit(Request $request){

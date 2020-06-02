@@ -69,6 +69,10 @@ class User extends Authenticatable
         return "https://s.gravatar.com/avatar/$hash?s=61&d=mm";
     }
 
+    public function status(){
+        return $this->hasMany('App\Models\Status', 'user_id');
+    }
+
     public function friendsOfMine()
     {
         return $this->belongsToMany('App\Models\User', 'friends', 'friend_id', 'user_id');

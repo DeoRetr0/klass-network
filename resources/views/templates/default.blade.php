@@ -12,8 +12,35 @@
     <title>The Social Network</title>
 </head>
 <body>
+<style>
+    body{
+        overflow-x: hidden;
+
+    }
+    #main {
+        transition: margin-left .5s;
+        z-index: 1;
+        margin-top: 20px;
+    }
+    #open{
+        background-color: #004d40;
+        width:fit-content;
+        margin-top: 20px;
+        padding: 10px;
+        position: fixed;
+        z-index: 2;
+    }
+    #open span{
+        font-size:30px;
+        cursor:pointer;
+        margin: 10px;
+    }
+</style>
     @include('templates.partes.nav')
-    <div class="container" style="margin-bottom: 40px">
+<div id="open">
+    <span onclick="openNav()">&#9776;</span>
+</div>
+    <div id="main" class="container">
         @include('templates.partes.alerts')
         @yield('conteudo')
     </div>

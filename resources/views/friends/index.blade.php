@@ -1,4 +1,7 @@
-    <style>
+@extends('templates.default')
+
+@section('conteudo')
+<style>
         #amigos{
             background-color: #212121;
             color: whitesmoke;
@@ -30,3 +33,4 @@
                 @endforeach
             @endif
         </div>
+@stop

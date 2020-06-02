@@ -3,6 +3,7 @@
         text-align: center;
         background-color: #004d40;
         font-family: 'Righteous', cursive;
+        color: white;
     }
 </style>
 <footer class="fixed-bottom">
