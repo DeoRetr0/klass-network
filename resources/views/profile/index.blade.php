@@ -277,7 +277,9 @@
                     @endif
                     <!-- FIM DE POSTS FEITOS -->
                     </div>
+                    <br>
                 </div>
+                <br>
             </div>
         </div>
     </div>
