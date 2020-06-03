@@ -107,6 +107,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label for="sobre" class="control-label">Sobre:</label>
+                            <textarea type="text" name="sobre" class="form-control" id="sobre">{{ Request::old('sobre')?:Auth::user()->sobre }}</textarea>
+                        </div>
+                    </div>
                     <div id="salvar" class="form-group">
                         <button type="submit" class="btn btn-light">Salvar</button>
                     </div>

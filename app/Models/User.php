@@ -70,7 +70,7 @@ class User extends Authenticatable
     }
 
     public function status(){
-        return $this->hasMany('App\Models\Status', 'user_id');
+        return $this->hasMany('App\Models\Status', 'user_id')->orderBy('created_at', 'desc');
     }
 
     public function friendsOfMine()
@@ -128,6 +128,22 @@ class User extends Authenticatable
     {
         return (bool) $this->friends()->where('id', $user->id)->count();
     }
+    /*
+     * LIKES
+     */
+    public function likes(){
+        return $this->hasMany('App\Models\Like', 'user_id');
+
+    }
+
+    public function hasLikedStatus(Status $status)
+    {
+        return(bool) $status->likes()
+            ->where('likeable_id', $status->id)
+            ->where('likeable_type',get_class($status))
+            ->where('user_id', $this->id)
+            ->count();
+    }
     /**
      * The attributes that should be cast to native types.
      *
@@ -136,4 +152,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }

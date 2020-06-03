@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Status;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Like;
+
 
 class StatusController extends Controller
 {
@@ -13,7 +15,6 @@ class StatusController extends Controller
         $this->validate($request,[
             'status' => 'required|max:250'
         ]);
-
         Auth::user()->status()->create([
             'body' => $request->input('status'),
         ]);
@@ -47,6 +48,28 @@ class StatusController extends Controller
         ])->user()->associate(Auth::user());
 
         $status->replies()->save($reply);
+
+        return redirect()->back();
+    }
+
+    public function getLike($statusId)
+    {
+        $status = Status::find($statusId);
+
+        if (!$status){
+            return redirect()->status('home');
+        }
+        if (!Auth::user()->isFriendsWith($status->user)){
+            return redirect()->route('home');
+        }
+        if (Auth::user()->hasLikedStatus($status)){
+            return redirect()->back();
+        }
+
+        $like = $status->likes()->create([
+            'user_id' => auth()->id()
+        ]);
+        Auth::user()->likes()->save($like);
 
         return redirect()->back();
     }

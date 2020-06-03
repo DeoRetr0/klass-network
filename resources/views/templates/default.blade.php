@@ -25,17 +25,19 @@
     #open{
         background-color: #004d40;
         width:fit-content;
-        margin-top: 20px;
+        margin-top: 250px;
         padding: 10px;
         position: fixed;
         z-index: 2;
+
     }
     #open span{
-        font-size:30px;
+        font-size:15px;
         cursor:pointer;
         margin: 10px;
     }
 </style>
+
     @include('templates.partes.nav')
 <div id="open">
     <span onclick="openNav()">&#9776;</span>

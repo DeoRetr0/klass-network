@@ -36,6 +36,7 @@ class ProfileController extends Controller
             'nasceuEm'=>$request->input('nasceuEm'),
             'trabalho'=>$request->input('trabalho'),
             'relacionamento'=>$request->input('relacionamento'),
+            'sobre'=>$request->input('sobre')
         ]);
 
         return redirect()

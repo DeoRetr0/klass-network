@@ -7,6 +7,7 @@
         }
         #conteudo{
             margin-top: 20px;
+            padding-right: 10px;
         }
         ul#opcoes li {
             display:inline;
@@ -32,19 +33,23 @@
                 <input type="hidden" name="_token" value="{{Session::token()}}">
             </form>
         </div>
-    </div>
+{{--        <div id="chatlist" style="background-color: grey; padding: 10px; margin: 10px" class="col-sm-12 col-lg">--}}
+{{--            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eius ex explicabo illum totam? Distinctio, error fugiat id illum inventore molestias, mollitia nam perferendis porro quam ratione recusandae saepe suscipit.</p>--}}
+{{--            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eius ex explicabo illum totam? Distinctio, error fugiat id illum inventore molestias, mollitia nam perferendis porro quam ratione recusandae saepe suscipit.</p>--}}
+{{--            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eius ex explicabo illum totam? Distinctio, error fugiat id illum inventore molestias, mollitia nam perferendis porro quam ratione recusandae saepe suscipit.</p>--}}
+{{--            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum eius ex explicabo illum totam? Distinctio, error fugiat id illum inventore molestias, mollitia nam perferendis porro quam ratione recusandae saepe suscipit.</p>--}}
+{{--        </div>--}}
     <!-- OUTROS STATUS -->
-    <div class="row">
         @if(!$status->count())
             <p>Ainda não houve postagens.</p>
         @else
             @foreach($status as $post)
-                @if($authUserIsFriend || Auth::user()->id===$post->user->id)
+                @if(Auth::user()->isFriendsWith($post->user) || Auth::user()->id===$post->user->id)
                 <div class="card col-sm-12 col-lg-8" style="margin-left: 10px;margin-bottom: 5px; padding: 0">
                     <div class='card-body'>
                         <div class="media">
                             <a class="pull-left" href="{{route('profile.index', ['email'=>$post->user->email]) }}">
-                                <img class="media-object" alt="{{$post->user->getName()}}"
+                                <img style="border-radius: 50px"class="media-object" alt="{{$post->user->getName()}}"
                                      src="{{ $post->user->getAvatarUrlBasic()}}">
                             </a>
                             <div class="media-body">
@@ -58,16 +63,17 @@
                                 <hr>
                                 <p>{{$post->body}}</p>
                                 <ul class="list-inline" id="opcoes">
-                                    <li><a href="#">Curtir</a></li>
-                                    <li>10 curtidas</li>
+                                    @if($post->user->id !== Auth::user()->id)
+                                        <li><a href="{{route('status.like', ['statusId'=>$post->id])}}">Curtir</a></li>
+                                    @endif
+                                        <li>{{$post->likes->count()}} {{Str::plural('curtida', $post->likes->count())}}</li>
                                 </ul>
-
                                 {{--RESPOSTA DO STATUS --}}
                                 @foreach($post->replies as $reply)
                                     <div class="media">
                                         <a class="pull-left"
                                            href="{{route('profile.index', ['email' => $reply->user->email])}}">
-                                            <img class="media-object" alt="{{$reply->user->getName()}}"
+                                            <img class="media-object" style="border-radius: 50px" alt="{{$reply->user->getName()}}"
                                                  src="{{$reply->user->getAvatarUrlBasic()}}">
                                         </a>
                                         <div class="media-body">
@@ -78,13 +84,15 @@
                                             <ul class="list-inline" id="opcoes">
                                                 <span hidden>{{\Carbon\Carbon::setLocale('pt_BR')}}</span>
                                                 <li>{{$reply->created_at->diffForHumans()}}</li>
-                                                <li><a href="#">Like</a></li>
-                                                <li>4 likes</li>
+                                                @if($reply->user->id !== Auth::user()->id)
+                                                <li><a href="{{route('status.like', ['statusId'=>$reply->id])}}">Curtir</a></li>
+                                                @endif
+                                                <li>{{$reply->likes->count()}} {{Str::plural('curtidas', $reply->likes->count())}}</li>
                                             </ul>
                                         </div>
                                     </div>
                                 @endforeach
-                                @if(Auth::user()->id===$post->user->id)
+                            @if(Auth::user()->isFriendsWith($post->user) || Auth::user()->id===$post->user->id)
                                     <form role="form" action="{{route('status.reply', ['statusId' => $post->id])}}"
                                           method="post">
                                         <div
@@ -111,8 +119,9 @@
     </div>
     <br>
     {!!$status->render()!!}
+    <br>
     <!-- LISTA DE AMIGOS PARA CHAT -->
-    <div id="chatlist" style="background-color: grey;">
-        AAAA
-    </div>
 @stop
+
+{{--@if(Auth::user()->isFriendsWith($post->user) || Auth::user()->id===$post->user->id)--}}
+

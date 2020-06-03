@@ -2,6 +2,10 @@
 
 @section('conteudo')
 <style>
+    body{
+        background-color: #212121;
+        color: whitesmoke;
+    }
         #amigos{
             background-color: #212121;
             color: whitesmoke;
