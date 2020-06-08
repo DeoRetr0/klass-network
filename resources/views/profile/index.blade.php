@@ -1,34 +1,17 @@
 @extends('templates.default')
-
 @section('conteudo')
     <style>
-        body {
-            background-color: #212121;
-            color: whitesmoke;
-            margin: 0;
+        /* CSS DA PARTE DE CIMA - IMAGEM E BANNER*/
+        #head {
+            width: available;
+            margin-top: 30px;
             padding: 0;
-        }
-        #perfilFundo{
-            margin: 0;
-            padding: 0;
-        }
-
-        .card-header {
-            color: #212121;
-        }
-
-        .itens {
-            margin-top: 10px;
-        }
-
-        .card-body {
-            color: #212121;
         }
 
         #banner {
+            padding: 5px;
             background-image: url("https://seeoutlook.com/wp-content/uploads/2018/09/FB-COVER.jpg");
             background-repeat: no-repeat;
-            background-size: cover;
             border: 1px white solid;
         }
 
@@ -42,8 +25,28 @@
             margin-bottom: 20px;
         }
 
-        #conteudo {
-            margin-top: 20px;
+        #desAmigo {
+            margin-bottom: 10px;
+        }
+
+        /* CSS DOS STATUS/CARDS CARREGADOS*/
+        .status a {
+            color: var(--primaryText-color);
+        }
+
+        .status {
+            margin-bottom: 5px;
+            padding: 0;
+            border: 1px solid var(--secondaryText-color);
+            border-radius: 4px;
+            background-color: var(--card-color);
+        }
+
+        .textarea, .textarea::placeholder, .textarea:focus {
+            background: var(--card-color);
+            border: none;
+            color: var(--primaryText-color);
+        !important;
         }
 
         ul#opcoes li {
@@ -51,237 +54,256 @@
             margin: 0;
         }
 
-        .card a {
-            color: #212121;
+        div.card {
+            margin-bottom: 10px;
+        }
+
+        /* CSS DOS BOTÕES QUE FICAM DENTRO DOS CARDS*/
+        .headerButtons {
+            float: right;
+        }
+
+        /* CSS DE TODOS OS BOTÕES*/
+        .btn {
+            background-color: var(--secondary-color);
+            border: solid 1px var(--font-color);
+            color: var(--font-color);
+        }
+
+        .btn:hover, .btn:active {
+            background-color: var(--primary-color);
+            border: solid 1px var(--font-color);
+            color: var(--font-color);
         }
     </style>
-    <div id="perfilFundo" class="container">
-        <div class="col" style="padding: 0">
-            <!-- INFORMAÇÕES DO USUARIO -->
-            <div class="container-fluid" id="banner">
-                @if($user == Auth::user())
-                    <div id="mudarBanner">
-                        <button type="submit" class="btn btn-light">Mudar banner</button>
-                    </div>
-                @endif
-                @include('user.partials.userblock')
-                @if ( Auth::user()->hasFriendRequestPending($user) )
-                    <p>Aguardando {{ $user->getName() }} aceitar seu pedido</p>
-                @elseif ( Auth::user()->hasFriendRequestReceived($user) )
-                    <a href="{{ route('friends.accept', ['email' => $user->email]) }}" class="btn btn-primary">Aceitar
-                        pedido de amizade</a>
-                @elseif ( Auth::user()->isFriendsWith($user) )
-                    <p>Você e {{ $user->getName() }} são amigos</p>
-                @elseif ( Auth::user()->id !== $user->id)
-                    <a href="{{ route('friends.add', ['email' => $user->email]) }}" class="btn btn-success"
-                       style="margin-bottom: 10px">
-                        Adicionar amigo
-                    </a>
-                @endif
-            </div>
+    <div id="head" class="container-fluid">
+        <!-- INFORMAÇÕES DO USUARIO -->
+        <div id="banner">
+            @if($user == Auth::user())
+                <div id="mudarBanner">
+                    <button type="submit" class="btn">Mudar banner</button>
+                </div>
+            @endif
+            @include('user.partials.userblock')
+            @if ( Auth::user()->hasFriendRequestPending($user) )
+                <p>Aguardando {{ $user->getName() }} aceitar seu pedido</p>
+            @elseif ( Auth::user()->hasFriendRequestReceived($user) )
+                <a href="{{ route('friends.accept', ['email' => $user->email]) }}" class="btn btn-success">Aceitar
+                    pedido de amizade</a>
+            @elseif ( Auth::user()->isFriendsWith($user) )
+                <p>Você e {{ $user->getName() }} são amigos</p>
+                <form action="{{route('friends.delete', ['email' => $user->email])}}" method="post">
+                    <input id="desAmigo" type="submit" class="btn btn-danger btn-sm" value="Desfazer amizade">
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                </form>
+            @elseif ( Auth::user()->id !== $user->id)
+                <a href="{{ route('friends.add', ['email' => $user->email]) }}" class="btn btn-success"
+                   style="margin-bottom: 10px">
+                    Adicionar amigo
+                </a>
+            @endif
         </div>
-        <div class="tab-content rounded" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-perfil" role="tabpanel" aria-labelledby="nav-home-tab">
-                <div class="row">
-                    <div class="itens col-sm-12 col-lg-4">
-                        <!-- INFOMAÇÕES PESSOAIS -->
-                        <div class='card'>
-                            <div class='card-header' style="line-height: 35px">
-                                <i class="far fa-address-card"></i> Informações
-                                @if($user == Auth::user())
-                                    <button type="button"
-                                            style="float: right;width: fit-content; color: black;padding: 5px"
-                                            class="btn btn-light" data-toggle="modal" data-target="#exampleModal">
-                                        Editar
-                                    </button>
-                                @endif
-                            </div>
-                            <div class='card-body'>
-                                @if($user->getSobre() == '')
-                                @else
-                                    <p>{{$user->getSobre()}}</p>
-                                    <hr>
-                                @endif
-                                @if($user->trabalho == '')
-                                @else
-                                    <p><i class="fas fa-briefcase fa-lg"></i> {{$user->trabalho}}</p>
-                                @endif
-                                @if($user->localizacao == '')
-                                @else
-                                    <p><i class="fas fa-home fa-lg"></i> {{$user->localizacao}}</p>
-                                @endif
-                                @if($user->nasceuEm == '')
-                                @else
-                                    <p><i class="fas fa-map-marker fa-lg"></i> {{$user->nasceuEm}}</p>
-                                @endif
-                                @if($user->relacionamento == '')
-                                @else
-                                    <p><i class="fas fa-heart fa-lg"></i></i> {{$user->relacionamento}}</p>
-                                @endif
-                                @if($user->dataNascimento == '')
-                                @else
-                                    @php
-                                        $original_date = "$user->dataNascimento";
-                                        $timestamp = strtotime($original_date);
-                                        $new_date = date("d/m/Y", $timestamp);
-                                                echo '<p><i class="fas fa-birthday-cake fa-lg"></i></i> '.$new_date.'</p>'
-                                    @endphp
-                                @endif
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content" style="background-color: #004d40">
-                                            <div class="modal-body">
-                                                <button type="button" class="close btn" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                @include('profile.edit')
-                                            </div>
+    </div>
+    <br>
+    <div class="tab-content rounded">
+        <div class="tab-pane fade show active" id="nav-perfil" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="row">
+                <div class="itens col-lg-4 col-sm-12 ">
+                    <!-- INFOMAÇÕES PESSOAIS -->
+                    <div class='status card'>
+                        <div class='card-header' style="line-height: 35px">
+                            <i class="far fa-address-card"></i> Informações
+                            @if($user == Auth::user())
+                                <button type="button"
+                                        class="headerButtons btn" data-toggle="modal" data-target="#exampleModal">
+                                    Editar
+                                </button>
+                            @endif
+                        </div>
+                        <div class='card-body'>
+                            @if($user->getSobre() == '')
+                            @else
+                                <p>{{$user->getSobre()}}</p>
+                                <hr>
+                            @endif
+                            @if($user->trabalho == '')
+                            @else
+                                <p><i class="fas fa-briefcase fa-lg"></i> {{$user->trabalho}}</p>
+                            @endif
+                            @if($user->localizacao == '')
+                            @else
+                                <p><i class="fas fa-home fa-lg"></i> {{$user->localizacao}}</p>
+                            @endif
+                            @if($user->nasceuEm == '')
+                            @else
+                                <p><i class="fas fa-map-marker fa-lg"></i> {{$user->nasceuEm}}</p>
+                            @endif
+                            @if($user->relacionamento == '')
+                            @else
+                                <p><i class="fas fa-heart fa-lg"></i></i> {{$user->relacionamento}}</p>
+                            @endif
+                            @if($user->dataNascimento == '')
+                            @else
+                                @php
+                                    $original_date = "$user->dataNascimento";
+                                    $timestamp = strtotime($original_date);
+                                    $new_date = date("d/m/Y", $timestamp);
+                                            echo '<p><i class="fas fa-birthday-cake fa-lg"></i></i> '.$new_date.'</p>'
+                                @endphp
+                            @endif
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content" style="background-color: var(--primary-color)">
+                                        <div class="modal-body">
+                                            <button type="button" class="close btn" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            @include('profile.edit')
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- FIM DAS INFORMAÇÕES -->
-                        <br>
-                        <!-- AMIGOS -->
-                        <div class='card'>
-                            <div class='card-header'>
-                                <i class="fas fa-user-friends"></i> Amigos
-                                <a href="{{route('profile.friends', ['email' =>$user->email])}}"
-                                   style="float: right; color: black">Mostrar todos</a>
-                            </div>
-                            <div class='card-body'>
-                                <p>@if(!$user->friends()->count())
-                                    <p>Ainda não adicionou ninguém!</p>
-                                    @else
-                                    @foreach($user->friends() as $user)
-                                    @include('user/partials/userbasic')
-                                    @endforeach
-                                    @endif
-                                    </p>
-                            </div>
-                        </div>
-                        <!-- FIM DE AMIGOS -->
-                        <br>
-                        <!-- FOTOS -->
-                        <div class='card'>
-                            <div class='card-header'>
-                                Fotos
-                            </div>
-                            <div class='card-body'>
-                                <p>{{$user->localizacao}}</p>
-                            </div>
-                        </div>
-                        <!-- FIM DE FOTOS -->
                     </div>
-                    <!-- FAZER NOVA POSTAGEM -->
-                    <div class='itens col-sm-12 col-lg' id='postagem'>
-                        @if(Auth::user()->id != $user->id)
-                        <form role="form" action="{{route('status.post')}}" method="post">
-                            <div class='card'>
-                                <div class='card-body'>
-                        <textarea required class="form-control" name='status' id='post' rows='2'
-                                  style="width: 100%" placeholder='  Quer dizer algo?'></textarea>
-                                </div>
-                                <div class='card-footer'>
-                                    <button type='submit' class='btn btn-success'>Postar</button>
-                                </div>
-                            </div>
-                            <input type="hidden" name="_token" value="{{Session::token()}}">
-                        </form>
-                        <!-- FIM DE FAZER NOVA POSTAGEM -->
-                        <br>
-                        @endif
-                    <!-- POSTS FEITOS -->
-                        @if(!$status->count())
-                            <p>{{$user->getName()}} ainda não postou.</p>
-                        @else
+                    <!-- FIM DAS INFORMAÇÕES -->
+                    <!-- AMIGOS -->
+                    <div class='status card'>
+                        <div class='card-header'>
+                            <i class="fas fa-user-friends"></i> Amigos
+                            <a class="headerButtons" href="{{route('profile.friends', ['email' =>$user->email])}}">Mostrar
+                                todos</a>
+                        </div>
+                        <div class='card-body'>
+                            <p>@if(!$user->friends()->count())
+                                <p>Ainda não adicionou ninguém!</p>
+                                @else
+                                @foreach($user->friends() as $user)
+                                @include('user/partials/userbasic')
+                                @endforeach
+                                @endif
+                                </p>
+                        </div>
+                    </div>
+                    <!-- FIM DE AMIGOS -->
+                    <!-- FOTOS -->
+                    <div class='status card'>
+                        <div class='card-header'>
+                            Fotos
+                        </div>
+                        <div class='card-body'>
+                            <p>FOTOS</p>
+                        </div>
+                    </div>
+                    <!-- FIM DE FOTOS -->
+                </div>
+                <!-- POSTS FEITOS -->
+                <div class='itens col-lg-8 col-sm-12' id='postagem'>
+                    @if(!$status->count())
+                        <p>{{$user->getName()}} ainda não postou.</p>
+                    @else
                         @foreach($status as $post)
-                                <div class="col-sm-12 col-lg" style="padding: 0">
-                                    <div class="card">
-                                        <div class='card-body'>
-                                            <div class="media" style="margin-top: 0">
-                                                <a class="pull-left"
-                                                   href="{{route('profile.index', ['email'=>$post->user->email]) }}">
-                                                    <img style="border-radius: 50px" class="media-object" alt="{{$post->user->getName()}}"
-                                                         src="{{ $post->user->getAvatarUrlBasic()}}">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading"><a
-                                                            href="{{route('profile.index', ['email'=>$post->user->email]) }}">{{$post->user->getName()}}</a>
-                                                    </h4>
-                                                    <ul class="list-inline">
-                                                        <span hidden>{{\Carbon\Carbon::setLocale('pt_BR')}}</span>
-                                                        <li>{{$post->created_at->diffForHumans()}}</li>
-                                                    </ul>
-                                                    <hr>
-                                                    <p>{{$post->body}}</p>
-                                                    <ul class="list-inline" id="opcoes">
-                                                        <li>{{$post->likes->count()}} {{Str::plural('curtidas', $post->likes->count())}}</li>
-                                                    </ul>
-                                                    {{--RESPOSTA DO STATUS --}}
-                                                    @foreach($post->replies as $reply)
-                                                        <div class="media" style="margin-top: 5px">
-                                                            <a class="pull-left"
-                                                               href="{{route('profile.index', ['email' => $reply->user->email])}}">
-                                                                <img style="border-radius: 50px" class="media-object"
-                                                                     alt="{{$reply->user->getName()}}"
-                                                                     src="{{$reply->user->getAvatarUrlBasic()}}">
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h6>
-                                                                    <a href="{{route('profile.index', ['email' => $reply->user->email])}}">{{$reply->user->getName()}}</a>
-                                                                </h6>
-                                                                <p>{{$reply->body}}</p>
-                                                                <ul class="list-inline" id="opcoes">
+                            <div id="post" class="status card">
+                                <div class='card-body'>
+                                    <div class="media" style="margin-top: 0">
+                                        <a class="pull-left"
+                                           href="{{route('profile.index', ['email'=>$post->user->email]) }}">
+                                            <img style="border-radius: 50px" class="media-object"
+                                                 alt="{{$post->user->getName()}}"
+                                                 src="{{ $post->user->getAvatarUrlBasic()}}">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><a
+                                                    href="{{route('profile.index', ['email'=>$post->user->email]) }}">{{$post->user->getName()}}</a>
+                                            </h4>
+                                            <ul class="list-inline">
+                                                <span hidden>{{\Carbon\Carbon::setLocale('pt_BR')}}</span>
+                                                <li>{{$post->created_at->diffForHumans()}}</li>
+                                            </ul>
+                                            <hr>
+                                            <p>{{$post->body}}</p>
+                                            <ul class="list-inline" id="opcoes">
+                                                @if($post->user->id !== Auth::user()->id)
+                                                    <li>
+                                                        <a href="{{route('status.like', ['statusId'=>$post->id])}}"><i
+                                                                class="fas fa-heart"></i> Curtir</a>
+                                                    </li>
+                                                @endif
+                                                <li>{{$post->likes->count()}} {{Str::plural('curtidas', $post->likes->count())}}</li>
+                                            </ul>
+                                            {{--RESPOSTAS DO STATUS --}}
+                                            @if($post->replies->count()>1)
+                                                <button class="btn btn-sm" style="margin-bottom: 10px" type="button"
+                                                        data-toggle="collapse" data-target=".collapse"
+                                                        aria-expanded="false" aria-controls="collapseExample">
+                                                    Ver Comentários
+                                                </button>
+                                            @endif
+                                            @foreach($post->replies as $reply)
+                                                <div class="collapse media" style="margin-top: 5px">
+                                                    <a class="pull-left"
+                                                       href="{{route('profile.index', ['email' => $reply->user->email])}}">
+                                                        <img style="border-radius: 50px" class="media-object"
+                                                             alt="{{$reply->user->getName()}}"
+                                                             src="{{$reply->user->getAvatarUrlBasic()}}">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h6>
+                                                            <a href="{{route('profile.index', ['email' => $reply->user->email])}}">{{$reply->user->getName()}}</a>
+                                                        </h6>
+                                                        <p>{{$reply->body}}</p>
+                                                        <ul class="list-inline" id="opcoes">
                                                                     <span
                                                                         hidden>{{\Carbon\Carbon::setLocale('pt_BR')}}</span>
-                                                                    <li>{{$reply->created_at->diffForHumans()}}</li>
+                                                            <li>{{$reply->created_at->diffForHumans()}}</li>
+                                                            @if($reply->user->id !== Auth::user()->id)
                                                                 @if($reply->user->id !== Auth::user()->id)
-                                                                        <li><a href="{{route('status.like', ['statusId'=>$reply->id])}}">Like</a></li>
-                                                                    @endif
-                                                                    <li>{{$reply->likes->count()}} {{Str::plural('curtidas', $reply->likes->count())}}</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                    @if($authUserIsFriend || Auth::user()->id===$post->user->id)
-                                                        <form role="form"
-                                                              action="{{route('status.reply', ['statusId' => $post->id])}}"
-                                                              method="post">
-                                                            <div
-                                                                class="form-group {{$errors->has("reply-{$post->id}") ? 'has-error':''}}">
-                                                            <textarea name="reply-{{$post->id}}" class="form-control"
-                                                                      rows="2" placeholder="Comente sobre"></textarea>
-                                                                @if($errors->has("reply-{$post->id}"))
-                                                                    <span class="help-block">
+                                                                    <li>
+                                                                        <a href="{{route('status.like', ['statusId'=>$reply->id])}}"><i
+                                                                                class="fas fa-heart"></i> Curtir</a>
+                                                                    </li>
+                                                                @endif
+                                                            @endif
+                                                            <li>{{$reply->likes->count()}} {{Str::plural('curtidas', $reply->likes->count())}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        <!-- CRIAR COMENTÁRIO SE SÃO AMIGOS OU SE É MEU POST -->
+                                            @if($authUserIsFriend || Auth::user()->id===$post->user->id)
+                                                <form role="form"
+                                                      action="{{route('status.reply', ['statusId' => $post->id])}}"
+                                                      method="post">
+                                                    <div
+                                                        class="form-group {{$errors->has("reply-{$post->id}") ? 'has-error':''}}">
+                                                            <textarea name="reply-{{$post->id}}"
+                                                                      class="textarea form-control"
+                                                                      rows="2"
+                                                                      placeholder="Comente sobre..."></textarea>
+                                                        @if($errors->has("reply-{$post->id}"))
+                                                            <span class="help-block">
                                                         {{$errors->first("reply-{$post->id}")}}
                                                     </span>
-                                                                @endif
-                                                            </div>
-                                                            <input type="submit" value="Comentar"
-                                                                   class="btn btn-default btn-sm">
-                                                            <input type="hidden" name="_token"
-                                                                   value="{{Session::token()}}">
-                                                        </form>
-                                                    @endif
-                                                </div>
-                                            </div>
+                                                        @endif
+                                                    </div>
+                                                    <input type="submit" value="Comentar"
+                                                           class="btn btn-sm">
+                                                    <input type="hidden" name="_token"
+                                                           value="{{Session::token()}}">
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
-                                <br>
-                        @endforeach
-                    @endif
-                    <!-- FIM DE POSTS FEITOS -->
-                    </div>
-                    <br>
+                            </div>
+                    @endforeach
+                @endif
+                <!-- FIM DE POSTS FEITOS -->
                 </div>
                 <br>
             </div>
+            <br>
         </div>
-    </div>
     </div>
 @stop

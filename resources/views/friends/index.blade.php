@@ -2,13 +2,12 @@
 
 @section('conteudo')
 <style>
-    body{
-        background-color: #212121;
-        color: whitesmoke;
-    }
+        #allConteudo{
+            margin-top: 30px;
+        }
         #amigos{
-            background-color: #212121;
-            color: whitesmoke;
+            background-color: var(--bg-color);
+            color: var(--font-color);
             padding: 10px;
             text-align: center;
             margin-left: 250px;
@@ -18,7 +17,7 @@
             margin-left: 120px;
         }
     </style>
-        <div>
+        <div id="allConteudo">
             <h4>Pedidos de Amizade</h4>
             <div class="dropdown-divider"></div>
         <?php

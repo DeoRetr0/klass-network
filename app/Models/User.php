@@ -75,12 +75,12 @@ class User extends Authenticatable
 
     public function friendsOfMine()
     {
-        return $this->belongsToMany('App\Models\User', 'friends', 'friend_id', 'user_id');
+        return $this->belongsToMany('App\Models\User', 'friends', 'user_id', 'friend_id');
     }
 
     public function friendOf()
     {
-        return $this->belongsToMany('App\Models\User', 'friends', 'user_id', 'friend_id');
+        return $this->belongsToMany('App\Models\User', 'friends', 'friend_id', 'user_id');
     }
 
     public function friends()
@@ -118,6 +118,13 @@ class User extends Authenticatable
         return $this->friendOf()->attach($user->id);
     }
 
+    public function deleteFriend(User $user)
+    {
+        return $this->friendOf()->detach($user->id);
+        return $this->friendsOfMine()->detach($user->id);
+
+    }
+
     public function acceptFriendRequest(User $user)
     {
         return $this->friendRequests()->where('id', $user->id)->first()
@@ -138,11 +145,7 @@ class User extends Authenticatable
 
     public function hasLikedStatus(Status $status)
     {
-        return(bool) $status->likes()
-            ->where('likeable_id', $status->id)
-            ->where('likeable_type',get_class($status))
-            ->where('user_id', $this->id)
-            ->count();
+        return (bool) $status->likes->where('user_id', $this->id)->count();
     }
     /**
      * The attributes that should be cast to native types.

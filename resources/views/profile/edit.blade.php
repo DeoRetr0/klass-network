@@ -1,7 +1,7 @@
  <style>
         #atualizarPerfil{
             padding: 10px;
-            background-color: #004d40;
+            background-color: var(--primary-color);
             width: fit-content;
             margin: 50px auto;
             color: white;

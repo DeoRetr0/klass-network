@@ -2,18 +2,13 @@
 
 @section('conteudo')
     <style>
-        body {
-            background-color: #212121;
-            color: whitesmoke;
-        }
-
         .container {
             font-family: 'Josefin Sans', sans-serif;
-            margin-top: 50px;
-            width: fit-content;
+            margin-top: 150px;
+            width: max-content;
             height: auto;
-            background-color: #004d40;
-            color: white;
+            background-color: var(--primary-color);
+            color: var(--font-color);
             text-align: center;
             padding: 10px;
         }
@@ -22,7 +17,7 @@
             padding: 5px;
             margin: 10px;
             font-family: 'Righteous', cursive;
-            color: white;
+            color: var(--font-color);
             font-size: 40px;
             text-align: center;
         }

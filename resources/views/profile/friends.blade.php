@@ -2,8 +2,8 @@
 @section('conteudo')
     <style>
         body {
-            background-color: #212121;
-            color: whitesmoke;
+            background-color: var(--bg-color);
+            color: var(--primaryText-color);
             margin: 0;
         }
 
@@ -11,7 +11,7 @@
             padding: 10px;
         }
         .list{
-            background-color: #004d40;
+            background-color: var(--secondary-color);
             padding: 10px;
             border: white 1px solid;
             border-radius: 5px;

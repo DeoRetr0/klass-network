@@ -1,4 +1,9 @@
-<div class="media">
+<style>
+    .media a {
+        color: var(--primaryText-color);
+    }
+</style>
+<div class="media" style="color: var(--primaryText-color); background-color: var(--bg-color); width: fit-content; padding: 10px">
     <a href="{{route('profile.index', ['email' =>$user->email])}}" class="pull-left">
         <img class="media-object" src="{{$user->getAvatarUrl()}}" alt="{{$user->getName()}}">
     </a>

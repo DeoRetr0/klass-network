@@ -101,6 +101,11 @@ Route::get('/friends/accept/{email}', [
     'as'=>'friends.accept',
     'middleware'=>['auth'],
 ]);
+Route::post('/friends/delete/{email}', [
+    'uses'=>'\App\Http\Controllers\FriendController@postDelete',
+    'as'=>'friends.delete',
+    'middleware'=>['auth'],
+]);
 /*
  * STATUS
  */

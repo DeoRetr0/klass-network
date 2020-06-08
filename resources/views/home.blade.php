@@ -2,11 +2,12 @@
 
 @section('conteudo')
     <style>
-        body{
-            background-color: #212121;
-            color: whitesmoke;
+        #home{
+            margin-top: 100px;
         }
     </style>
+    <div id="home">
         <h3>The Social Network</h3>
-        <p>Sua conexão com a cidade.</p>
+        <p>Bem vindo, esse é o projeto de uma rede social!</p>
+    </div>
 @stop

@@ -107,5 +107,12 @@ class FriendController extends Controller
             ->with('info', 'Pedido de amizade aceito!');
     }
 
-
+    public function postDelete ($email){
+        $user = User::where('email', $email)->first();
+        if (!Auth::user()->isFriendsWith($user) ) {
+            return redirect()->back();
+        }
+        Auth::user()->deleteFriend($user);
+        return redirect()->back()->with('info', 'Amizade desfeita');
+    }
 }
