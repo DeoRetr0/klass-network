@@ -84,6 +84,8 @@
                 height: 35px;
                 margin-top: 20px;
                 margin-left: 20px;
+                background-color: var(--hover-color);
+
             }
             span.navbar-toggler-icon{
                 height: 20px;
