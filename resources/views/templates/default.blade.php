@@ -12,7 +12,7 @@
     <script src="https://kit.fontawesome.com/982d993f59.js" crossorigin="anonymous"></script>
     <title>Klass /
         @if($view_name == "Perfil")
-            {{$view_name.' @'.$post->user->username}}
+            {{$view_name.' @'.$user->username}}
         @else
             {{$view_name}}
         @endif
