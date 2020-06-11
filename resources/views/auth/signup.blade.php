@@ -73,7 +73,7 @@
                 </div>
                 <div class="form-group col-sm">
                     <label for="inputUsername">Tag:</label>
-                    <input required type="tel" class="form-control" id="inputUsername" name="username" placeholder="Apelido">
+                    <input required type="text" class="form-control" id="inputUsername" name="username" placeholder="Apelido">
                 </div>
             </div>
             <div id="buttons">
