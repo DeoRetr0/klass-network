@@ -12,14 +12,14 @@ class FriendController extends Controller
     {
         $friends = Auth::user()->friends();
         $friendRequests = Auth::user()->friendRequests();
-        return view('friends.index')
+        return view('friends.Solicitações')
             ->with('friends', $friends)
             ->with('friendRequests', $friendRequests);
     }
-    public static function getFriends($email)
+    public static function getFriends($username)
     {
         $friends = Auth::user()->friends();
-        $user = User::where('email', $email)->first();
+        $user = User::where('username', $username)->first();
         if (!$user){
             abort(404);
         }
@@ -31,10 +31,10 @@ class FriendController extends Controller
     /**
      *  SEND  a friend request
      */
-    public function getAdd( $email )
+    public function getAdd( $username )
     {
         // get the requested user's DB object
-        $user = User::where('email', $email)->first();
+        $user = User::where('username', $username)->first();
 
         // A user can't send himself a request...
         if ( Auth::user()->id === $user->id ) {
@@ -53,14 +53,14 @@ class FriendController extends Controller
         // check if there exists already a friend request between the two
         if ( Auth::user()->hasFriendRequestPending($user) || $user->hasFriendRequestPending(Auth::user()) ) {
             return redirect()
-                ->route('profile.index', ['email' => $email])
+                ->route('profile.index', ['username' => $username])
                 ->with('info', 'Pedido de amizade pendente!');
         }
 
         // check if they are already friends
         if ( Auth::user()->isFriendsWith($user) ) {
             return redirect()
-                ->route('profile.index', ['email' => $email])
+                ->route('profile.index', ['username' => $username])
                 ->with('info', 'Vocês já são amigos!');
         }
 
@@ -68,17 +68,17 @@ class FriendController extends Controller
         Auth::user()->addFriend( $user );
 
         return redirect()
-            ->route('profile.index', ['email' => $email])
+            ->route('profile.index', ['username' => $username])
             ->with('info', 'Pedido de amizade enviado!');
     }
 
     /**
      *  ACCEPT  a friend request
      */
-    public function getAccept($email)
+    public function getAccept($username)
     {
         // get the requested user's DB object
-        $user = User::where('email', $email)->first();
+        $user = User::where('username', $username)->first();
 
         // check if there was a request pending
         if (!$user) {
@@ -90,13 +90,13 @@ class FriendController extends Controller
         // check if there IS a friend request between the two
         if ( !Auth::user()->hasFriendRequestReceived($user) ) {
             return redirect()
-                ->route('profile.index', ['email' => $email]);
+                ->route('profile.index', ['username' => $username]);
         }
 
         // check if they are already friends
         if ( Auth::user()->isFriendsWith($user) ) {
             return redirect()
-                ->route('profile.index', ['email' => $email])
+                ->route('profile.index', ['username' => $username])
                 ->with('info', 'Vocês já são amigos!');
         }
 
@@ -107,8 +107,8 @@ class FriendController extends Controller
             ->with('info', 'Pedido de amizade aceito!');
     }
 
-    public function postDelete ($email){
-        $user = User::where('email', $email)->first();
+    public function postDelete ($username){
+        $user = User::where('username', $username)->first();
         if (!Auth::user()->isFriendsWith($user) ) {
             return redirect()->back();
         }

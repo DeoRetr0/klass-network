@@ -19,6 +19,7 @@ class User extends Authenticatable
         'nome',
         'sobrenome',
         'email',
+        'username',
         'password',
         'dataNascimento',
         'faculdade',
@@ -147,6 +148,7 @@ class User extends Authenticatable
     {
         return (bool) $status->likes->where('user_id', $this->id)->count();
     }
+
     /**
      * The attributes that should be cast to native types.
      *

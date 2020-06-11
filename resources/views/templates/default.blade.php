@@ -8,8 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Righteous&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Concert+One&family=Odibee+Sans&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/982d993f59.js" crossorigin="anonymous"></script>
-    <title>The Social Network</title>
+    <title>Klass /
+        @if($view_name == "Perfil")
+            {{$view_name.' @'.$post->user->username}}
+        @else
+            {{$view_name}}
+        @endif
+    </title>
     <style>
         /* CSS BASE DOS TEMAS */
         :root {
@@ -107,14 +114,23 @@
                 font-size: 15px;
             }
         }
-
     </style>
+    <script>
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+            }
+        }
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="row">
         @if(Auth::check())
-            <form id="buscar" class="navbar-form" role="search" action="{{route('search.results')}}">
+            <form id="buscar" class="navbar-form" role="search" action="{{route('search.Buscar')}}">
                 <div class=" bg-light rounded shadow-sm">
                     <div class="input-group">
                         <input type="text" name="query" placeholder="Ache amigos..." aria-describedby="button-addon1" class="form-control border-0 bg-light">
@@ -135,25 +151,18 @@
         @if(Auth::check())
         <ul class="nav navbar-nav">
             <li><a href="{{route('home')}}">Página Inicial</a></li>
-            <li><a href="{{route('friends.index')}}">Solicitações</a></li>
+            <li><a href="{{route('friends.Solicitações')}}">Solicitações</a></li>
             <li style="margin-top: 3px"><a href="#">Notificações</a></li>
             @endif
             @if (Auth::check())
-                <li><a href="{{route('profile.index', ['email'=>Auth::user()->email])}}">Perfil</a></li>
-                <li><a href="#">Configurações</a></li>
+                <li><a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}">Perfil</a></li>
+                <li><a href="{{route('config.Config')}}">Configurações</a></li>
                 <div class="dropdown-divider"></div>
                 <li><a href="{{route('auth.signout')}}">Sair</a></li>
             @else
                 <li><a href="{{route('auth.login')}}">Logar</a></li>
                 <li><a href="{{route('auth.signup')}}">Criar Conta</a></li>
             @endif
-            <li><div class="theme-switch-wrapper">
-                    <label class="theme-switch" for="checkbox">
-                        <input type="checkbox" id="checkbox" />
-                        <div class="slider round"></div>
-                    </label>
-                    <em>Modo Escuro</em>
-                </div></li>
         </ul>
     </div>
 </nav>

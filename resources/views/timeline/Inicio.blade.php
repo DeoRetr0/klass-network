@@ -97,14 +97,14 @@
                     <div class="status card col-sm-12 col-lg-10">
                         <div class='card-body'>
                             <div class="media">
-                                <a class="pull-left" href="{{route('profile.index', ['email'=>$post->user->email]) }}">
+                                <a class="pull-left" href="{{route('profile.Perfil', ['username'=>$post->user->username]) }}">
                                     <img class="foto media-object"
                                          alt="{{$post->user->getName()}}"
                                          src="{{ $post->user->getAvatarUrlBasic()}}">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading"><a
-                                            href="{{route('profile.index', ['email'=>$post->user->email]) }}">{{$post->user->getName()}}</a>
+                                            href="{{route('profile.Perfil', ['username'=>$post->user->username]) }}">{{$post->user->getName()}}</a>
                                     </h4>
                                     <ul class="list-inline">
                                         <span hidden>{{\Carbon\Carbon::setLocale('pt_BR')}}</span>
@@ -121,9 +121,9 @@
                                         <li>{{$post->likes->count()}} {{Str::plural('curtida', $post->likes->count())}}</li>
                                     </ul>
                                     {{--RESPOSTA DO STATUS --}}
-                                    @if($post->replies->count()>1)
+                                    @if($post->replies->count()>0)
                                         <button class="verComentario btn btn-sm" type="button" data-toggle="collapse"
-                                                data-target=".collapse" aria-expanded="false"
+                                                data-target=".collapse " aria-expanded="false"
                                                 aria-controls="collapseExample">
                                             Ver Comentários
                                         </button>
@@ -131,22 +131,24 @@
                                     @foreach($post->replies as $reply)
                                         <div class="collapse media">
                                             <a class="pull-left"
-                                               href="{{route('profile.index', ['email' => $reply->user->email])}}">
+                                               href="{{route('profile.Perfil', ['username' => $reply->user->username])}}">
                                                 <img class="foto media-object"
                                                      alt="{{$reply->user->getName()}}"
                                                      src="{{$reply->user->getAvatarUrlBasic()}}">
                                             </a>
                                             <div class="media-body">
                                                 <h6>
-                                                    <a href="{{route('profile.index', ['email' => $reply->user->email])}}">{{$reply->user->getName()}}</a>
+                                                    <a href="{{route('profile.Perfil', ['username' => $reply->user->username])}}">{{$reply->user->getName()}}</a>
                                                 </h6>
                                                 <p>{{$reply->body}}</p>
                                                 <ul class="list-inline" id="opcoes">
                                                     <span hidden>{{\Carbon\Carbon::setLocale('pt_BR')}}</span>
                                                     <li>{{$reply->created_at->diffForHumans()}}</li>
+                                                    <br>
                                                     @if($reply->user->id !== Auth::user()->id)
                                                         <li>
-                                                            <a href="{{route('status.like', ['statusId'=>$reply->id])}}">Curtir</a>
+                                                            <a href="{{route('status.like', ['statusId'=>$reply->id])}}">
+                                                                <i class="fas fa-heart"></i> Curtir</a>
                                                         </li>
                                                     @endif
                                                     <li>{{$reply->likes->count()}} {{Str::plural('curtidas', $reply->likes->count())}}</li>

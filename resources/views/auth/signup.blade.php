@@ -71,10 +71,10 @@
                     <label for="inputEmail">Email:</label>
                     <input required type="email" class="form-control" id="inputEmail" placeholder="Email" name="email">
                 </div>
-{{--                <div class="form-group col-sm">--}}
-{{--                    <label for="inputTelefone">Telefone:</label>--}}
-{{--                    <input required type="tel" class="form-control" id="inputTelefone" name="telefone" placeholder="(XX)XXXXXXXXX" required>--}}
-{{--                </div>--}}
+                <div class="form-group col-sm">
+                    <label for="inputUsername">Tag:</label>
+                    <input required type="tel" class="form-control" id="inputUsername" name="username" placeholder="Apelido">
+                </div>
             </div>
             <div id="buttons">
                 <button type="submit" name="cadastrar" value="Cadastrar"class="btn btn-light">Cadastrar</button>

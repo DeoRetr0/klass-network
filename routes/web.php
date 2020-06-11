@@ -59,16 +59,16 @@ Route::get('/signout', [
  */
 Route::get('/search', [
     'uses'=>'\App\Http\Controllers\SearchController@getResults',
-    'as'=>'search.results',
+    'as'=>'search.Buscar',
 ]);
 /*
  * PERFIL DO USUARIO
  */
-Route::get('/user/{email}', [
+Route::get('/user/{username}', [
     'uses'=>'\App\Http\Controllers\ProfileController@getProfile',
-    'as'=>'profile.index',
+    'as'=>'profile.Perfil',
 ]);
-Route::get('/user/{email}/friends', [
+Route::get('/user/{username}/friends', [
     'uses'=>'\App\Http\Controllers\FriendController@getFriends',
     'as'=>'profile.friends',
 ]);
@@ -88,20 +88,20 @@ Route::post('/profile/edit', [
  */
 Route::get('/friends', [
     'uses'=>'\App\Http\Controllers\FriendController@getIndex',
-    'as'=>'friends.index',
+    'as'=>'friends.Solicitações',
     'middleware'=>['auth'],
 ]);
-Route::get('/friends/add/{email}', [
+Route::get('/friends/add/{username}', [
     'uses'=>'\App\Http\Controllers\FriendController@getAdd',
     'as'=>'friends.add',
     'middleware'=>['auth'],
 ]);
-Route::get('/friends/accept/{email}', [
+Route::get('/friends/accept/{username}', [
     'uses'=>'\App\Http\Controllers\FriendController@getAccept',
     'as'=>'friends.accept',
     'middleware'=>['auth'],
 ]);
-Route::post('/friends/delete/{email}', [
+Route::post('/friends/delete/{username}', [
     'uses'=>'\App\Http\Controllers\FriendController@postDelete',
     'as'=>'friends.delete',
     'middleware'=>['auth'],
@@ -122,6 +122,14 @@ Route::post('/status/{statusId}/reply', [
 Route::get('/status/{statusId}/like', [
     'uses'=>'\App\Http\Controllers\StatusController@getLike',
     'as'=>'status.like',
+    'middleware'=>['auth'],
+]);
+/*
+ * CONFIGURAÇÕES
+ */
+Route::get('/config', [
+    'uses'=>'\App\Http\Controllers\ProfileController@getConfig',
+    'as'=>'config.Config',
     'middleware'=>['auth'],
 ]);
 

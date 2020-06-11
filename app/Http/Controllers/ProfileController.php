@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function getProfile($email){
-        $user = User::where('email', $email)->first();
+    public function getProfile($username){
+        $user = User::where('username', $username)->first();
         if (!$user){
             abort(404);
         }
         $status = $user->status()->notReply()->get();
 
-        return view('profile.index')
+        return view('profile.Perfil')
             ->with('user', $user)
             ->with('status', $status)
             ->with('authUserIsFriend', Auth::user()->isFriendsWith($user));
@@ -40,7 +40,11 @@ class ProfileController extends Controller
         ]);
 
         return redirect()
-            ->route('profile.index', ['email'=>Auth::user()->email])
+            ->route('profile.Perfil', ['username'=>Auth::user()->username])
             ->with('info', 'Seu perfil foi atualizado!');
+    }
+
+    public function getConfig(){
+        return view('config.Config');
     }
 }

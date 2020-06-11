@@ -2,10 +2,6 @@
 
 @section('conteudo')
     <style>
-        body{
-            background-color: #212121;
-            color: white;
-        }
         h3{
             padding: 10px;
         }

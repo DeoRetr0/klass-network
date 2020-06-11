@@ -14,6 +14,7 @@ class AuthController extends Controller
     public function postSignup(Request $request){
         $this->validate($request,[
            'email'=>'required|unique:users|email|max:30',
+            'username'=>'required|unique:users|username|max:10',
             'nome'=>'required|alpha|max:30',
             'sobrenome'=>'required|alpha|max:30',
             'password'=>'required|min:8',
@@ -21,6 +22,7 @@ class AuthController extends Controller
         User::create([
             'email'=>$request->input('email'),
             'nome'=>$request->input('nome'),
+            'username'=>$request->input('username'),
             'sobrenome'=>$request->input('sobrenome'),
             'faculdade'=>$request->input('faculdade'),
             'curso'=>$request->input('curso'),

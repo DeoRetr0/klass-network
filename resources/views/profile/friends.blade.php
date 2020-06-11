@@ -25,12 +25,12 @@
             @if ( Auth::user()->hasFriendRequestPending($user) )
                 <p>Aguardando {{ $user->getName() }} aceitar seu pedido</p>
             @elseif ( Auth::user()->hasFriendRequestReceived($user) )
-                <a href="{{ route('friends.accept', ['email' => $user->email]) }}" class="btn btn-primary">Aceitar
+                <a href="{{ route('friends.accept', ['username' => $user->username]) }}" class="btn btn-primary">Aceitar
                     pedido de amizade</a>
             @elseif ( Auth::user()->isFriendsWith($user) )
                 <p>Você e {{ $user->getName() }} são amigos</p>
             @elseif ( Auth::user()->id !== $user->id)
-                <a href="{{ route('friends.add', ['email' => $user->email]) }}" class="btn btn-primary">Adicionar
+                <a href="{{ route('friends.add', ['username' => $user->username]) }}" class="btn btn-primary">Adicionar
                     amigo</a>
             @endif
         </div>

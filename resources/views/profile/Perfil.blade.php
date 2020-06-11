@@ -88,16 +88,16 @@
             @if ( Auth::user()->hasFriendRequestPending($user) )
                 <p>Aguardando {{ $user->getName() }} aceitar seu pedido</p>
             @elseif ( Auth::user()->hasFriendRequestReceived($user) )
-                <a href="{{ route('friends.accept', ['email' => $user->email]) }}" class="btn btn-success">Aceitar
+                <a href="{{ route('friends.accept', ['username' => $user->username]) }}" class="btn btn-success">Aceitar
                     pedido de amizade</a>
             @elseif ( Auth::user()->isFriendsWith($user) )
                 <p>Você e {{ $user->getName() }} são amigos</p>
-                <form action="{{route('friends.delete', ['email' => $user->email])}}" method="post">
+                <form action="{{route('friends.delete', ['username' => $user->username])}}" method="post">
                     <input id="desAmigo" type="submit" class="btn btn-danger btn-sm" value="Desfazer amizade">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                 </form>
             @elseif ( Auth::user()->id !== $user->id)
-                <a href="{{ route('friends.add', ['email' => $user->email]) }}" class="btn btn-success"
+                <a href="{{ route('friends.add', ['username' => $user->username]) }}" class="btn btn-success"
                    style="margin-bottom: 10px">
                     Adicionar amigo
                 </a>
@@ -172,15 +172,15 @@
                     <div class='status card'>
                         <div class='card-header'>
                             <i class="fas fa-user-friends"></i> Amigos
-                            <a class="headerButtons" href="{{route('profile.friends', ['email' =>$user->email])}}">Mostrar
+                            <a class="headerButtons" href="{{route('profile.friends', ['username' =>$user->username])}}">Mostrar
                                 todos</a>
                         </div>
-                        <div class='card-body'>
+                        <div class='card-body' style="margin-left: 20px">
                             <p>@if(!$user->friends()->count())
                                 <p>Ainda não adicionou ninguém!</p>
                                 @else
-                                @foreach($user->friends() as $user)
-                                @include('user/partials/userbasic')
+                                    @foreach($user->friends()->take(6) as $user)
+                                            @include('user/partials/userbasic')
                                 @endforeach
                                 @endif
                                 </p>
@@ -201,21 +201,21 @@
                 <!-- POSTS FEITOS -->
                 <div class='itens col-lg-8 col-sm-12' id='postagem'>
                     @if(!$status->count())
-                        <p>{{$user->getName()}} ainda não postou.</p>
+                        <p>Sem postagens!</p>
                     @else
                         @foreach($status as $post)
                             <div id="post" class="status card">
                                 <div class='card-body'>
                                     <div class="media" style="margin-top: 0">
                                         <a class="pull-left"
-                                           href="{{route('profile.index', ['email'=>$post->user->email]) }}">
+                                           href="{{route('profile.Perfil', ['username'=>$post->user->username]) }}">
                                             <img style="border-radius: 50px" class="media-object"
                                                  alt="{{$post->user->getName()}}"
                                                  src="{{ $post->user->getAvatarUrlBasic()}}">
                                         </a>
                                         <div class="media-body">
                                             <h4 class="media-heading"><a
-                                                    href="{{route('profile.index', ['email'=>$post->user->email]) }}">{{$post->user->getName()}}</a>
+                                                    href="{{route('profile.Perfil', ['username'=>$post->user->username]) }}">{{$post->user->getName()}}</a>
                                             </h4>
                                             <ul class="list-inline">
                                                 <span hidden>{{\Carbon\Carbon::setLocale('pt_BR')}}</span>
@@ -226,14 +226,14 @@
                                             <ul class="list-inline" id="opcoes">
                                                 @if($post->user->id !== Auth::user()->id)
                                                     <li>
-                                                        <a href="{{route('status.like', ['statusId'=>$post->id])}}"><i
-                                                                class="fas fa-heart"></i> Curtir</a>
+                                                        <a href="{{route('status.like', ['statusId'=>$post->id])}}">
+                                                            <i class="fas fa-heart"></i> Curtir</a>
                                                     </li>
                                                 @endif
                                                 <li>{{$post->likes->count()}} {{Str::plural('curtidas', $post->likes->count())}}</li>
                                             </ul>
                                             {{--RESPOSTAS DO STATUS --}}
-                                            @if($post->replies->count()>1)
+                                            @if($post->replies->count()>0)
                                                 <button class="btn btn-sm" style="margin-bottom: 10px" type="button"
                                                         data-toggle="collapse" data-target=".collapse"
                                                         aria-expanded="false" aria-controls="collapseExample">
@@ -243,14 +243,14 @@
                                             @foreach($post->replies as $reply)
                                                 <div class="collapse media" style="margin-top: 5px">
                                                     <a class="pull-left"
-                                                       href="{{route('profile.index', ['email' => $reply->user->email])}}">
+                                                       href="{{route('profile.Perfil', ['username' => $reply->user->username])}}">
                                                         <img style="border-radius: 50px" class="media-object"
                                                              alt="{{$reply->user->getName()}}"
                                                              src="{{$reply->user->getAvatarUrlBasic()}}">
                                                     </a>
                                                     <div class="media-body">
                                                         <h6>
-                                                            <a href="{{route('profile.index', ['email' => $reply->user->email])}}">{{$reply->user->getName()}}</a>
+                                                            <a href="{{route('profile.Perfil', ['username' => $reply->user->username])}}">{{$reply->user->getName()}}</a>
                                                         </h6>
                                                         <p>{{$reply->body}}</p>
                                                         <ul class="list-inline" id="opcoes">
