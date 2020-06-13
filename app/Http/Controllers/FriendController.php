@@ -53,14 +53,14 @@ class FriendController extends Controller
         // check if there exists already a friend request between the two
         if ( Auth::user()->hasFriendRequestPending($user) || $user->hasFriendRequestPending(Auth::user()) ) {
             return redirect()
-                ->route('profile.index', ['username' => $username])
+                ->route('profile.Perfil', ['username' => $username])
                 ->with('info', 'Pedido de amizade pendente!');
         }
 
         // check if they are already friends
         if ( Auth::user()->isFriendsWith($user) ) {
             return redirect()
-                ->route('profile.index', ['username' => $username])
+                ->route('profile.Perfil', ['username' => $username])
                 ->with('info', 'Vocês já são amigos!');
         }
 
@@ -68,7 +68,7 @@ class FriendController extends Controller
         Auth::user()->addFriend( $user );
 
         return redirect()
-            ->route('profile.index', ['username' => $username])
+            ->route('profile.Perfil', ['username' => $username])
             ->with('info', 'Pedido de amizade enviado!');
     }
 
@@ -90,13 +90,13 @@ class FriendController extends Controller
         // check if there IS a friend request between the two
         if ( !Auth::user()->hasFriendRequestReceived($user) ) {
             return redirect()
-                ->route('profile.index', ['username' => $username]);
+                ->route('profile.Perfil', ['username' => $username]);
         }
 
         // check if they are already friends
         if ( Auth::user()->isFriendsWith($user) ) {
             return redirect()
-                ->route('profile.index', ['username' => $username])
+                ->route('profile.Perfil', ['username' => $username])
                 ->with('info', 'Vocês já são amigos!');
         }
 

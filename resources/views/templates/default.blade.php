@@ -13,7 +13,7 @@
     <title>Klass /
         @if($view_name == "Perfil")
 {{--            {{$view_name.' @'.$post ?? ''->user->username}}--}}
-            {{$view_name.' @'. $post->user->username}}
+            {{$view_name.' @'. $user->username}}
         @else
             {{$view_name}}
         @endif
