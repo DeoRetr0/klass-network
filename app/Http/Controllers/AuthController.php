@@ -8,7 +8,7 @@ use App\Models\User;
 class AuthController extends Controller
 {
     public function getSignup(){
-        return view('auth.signup');
+        return view('auth.SignUp');
     }
 
     public function postSignup(Request $request){
@@ -36,7 +36,7 @@ class AuthController extends Controller
     }
 
     public function getLogin(){
-        return view('auth.login');
+        return view('auth.Login');
     }
     public function postLogin(Request $request){
         $this->validate($request,[

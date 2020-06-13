@@ -3,9 +3,15 @@
 @section('conteudo')
     <style>
         #home{
-            margin-top: 100px;
+            margin-top: 50px;
         }
-
+        .card {
+            margin-bottom: 5px;
+            padding: 0;
+            border: 1px solid var(--secondaryText-color);
+            border-radius: 4px;
+            background-color: var(--card-color);
+        }
         /* CSS DO BOTÃO DE MUDAR TEMA */
         .theme-switch-wrapper {
             display: flex;
@@ -74,13 +80,19 @@
         }
     </style>
     <div id="home">
-        <h3>Configurações Gerais</h3>
-        <div class="theme-switch-wrapper">
-            <label class="theme-switch" for="checkbox">
-                <input type="checkbox" id="checkbox"/>
-                <div class="slider round"></div>
-            </label>
-            <em>Modo Escuro</em>
+        <div class='status card'>
+            <div class='card-header'>
+                <h3>Configurações Gerais</h3>
+            </div>
+            <div class='card-body' style="margin-left: 20px">
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox"/>
+                        <div class="slider round"></div>
+                    </label>
+                    <em style="color: var(--primaryText-color)">Modo Escuro</em>
+                </div>
+            </div>
         </div>
     </div>
     <script>

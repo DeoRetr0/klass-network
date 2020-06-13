@@ -12,7 +12,8 @@
     <script src="https://kit.fontawesome.com/982d993f59.js" crossorigin="anonymous"></script>
     <title>Klass /
         @if($view_name == "Perfil")
-            {{$view_name.' @'.$user->username}}
+{{--            {{$view_name.' @'.$post ?? ''->user->username}}--}}
+            {{$view_name.' @'. $post->user->username}}
         @else
             {{$view_name}}
         @endif
@@ -160,8 +161,8 @@
                 <div class="dropdown-divider"></div>
                 <li><a href="{{route('auth.signout')}}">Sair</a></li>
             @else
-                <li><a href="{{route('auth.login')}}">Logar</a></li>
-                <li><a href="{{route('auth.signup')}}">Criar Conta</a></li>
+                <li><a href="{{route('auth.Login')}}">Logar</a></li>
+                <li><a href="{{route('auth.SignUp')}}">Criar Conta</a></li>
             @endif
         </ul>
     </div>

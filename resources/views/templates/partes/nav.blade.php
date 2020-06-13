@@ -1,3 +1,4 @@
+<script src="https://kit.fontawesome.com/982d993f59.js" crossorigin="anonymous"></script>
 <style>
     /* CSS DA BARRA LATERAL */
     .sidenav {
@@ -13,6 +14,12 @@
         font-size: 20px;
         font-weight: bold;
 
+    }
+    .nav button{
+        background-color: var(--card-color);
+    }
+    .nav button a{
+        color: var(--primaryText-color) !important;
     }
 
     a {
@@ -45,7 +52,7 @@
 </style>
 <div id="mySidenav" class="sidebar-expanded d-none d-md-block sidenav">
     <div id="navbarContent">
-        <div class="navbar-brand" style="font-family: 'Concert One', cursive; font-size: 50px; margin-left: 15px">Klass</div>
+        <div class="navbar-brand" style="font-family: 'Concert One', cursive; font-size: 50px; margin-left: 15px">Klass </div>
         @if(Auth::check())
             <form id="busca" class="navbar-form" role="search" action="{{route('search.Buscar')}}">
                 <div class=" bg-light rounded shadow-sm">
@@ -62,19 +69,36 @@
             </form>
             <br>
             <ul class="nav navbar-nav">
-                <li><a href="{{route('home')}}">Página Inicial</a></li>
-                <li><a href="{{route('friends.Solicitações')}}">Solicitações</a></li>
-                <li style="margin-top: 3px"><a href="#">Notificações</a></li>
+                <li>
+                    <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('home')}}"><i style="margin: 5px;" class="fa fa-home"></i> Página Inicial</a></button>
+                </li>
+                <li>
+                    <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('friends.Solicitações')}}"><i style="margin: 5px" class="fas fa-users"></i> Solicitações</a></button>
+                </li>
+                <li>
+                    <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="#"><i style="margin: 5px" class="fas fa-bullhorn"></i> Notificações</a></button>
+                </li>
                 @endif
                 @if (Auth::check())
-                    <li><a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}">Perfil</a></li>
-                    <li><a href="{{route('config.Config')}}">Configurações</a></li>
+                    <li>
+                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}"><i style="margin: 5px" class="fas fa-user"></i> Perfil</a></li>
+                    <li>
+                        <button style="border-radius: 25px" class="btn"><a href="{{route('config.Config')}}"><i style="margin: 5px" class="fas fa-cogs"></i> Configurações</a></button>
+                    </li>
                     <div class="dropdown-divider"></div>
-                    <li><a href="#" onclick="topFunction()" title="voltar ao topo">Voltar ao Topo</a></li>
-                    <li><a href="{{route('auth.signout')}}">Sair</a></li>
+                    <li>
+                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="#" onclick="topFunction()" title="voltar ao topo"><i style="margin: 5px" class="fas fa-arrow-up"></i> Voltar ao Topo</a></button>
+                    </li>
+                    <li>
+                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('auth.signout')}}"><i style="margin: 5px" class="fas fa-sign-out-alt"></i> Sair</a></button>
+                    </li>
                 @else
-                    <li><a href="{{route('auth.login')}}">Logar</a></li>
-                    <li><a href="{{route('auth.signup')}}">Criar Conta</a></li>
+                    <li>
+                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('auth.Login')}}"><i style="margin: 5px" class="fas fa-sign-in-alt"></i> Logar</a></button>
+                    </li>
+                    <li>
+                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('auth.SignUp')}}"><i style="margin: 5px" class="fas fa-id-badge"></i> Criar Conta</a></button>
+                    </li>
                 @endif
             </ul>
     </div>

@@ -25,7 +25,7 @@
     </style>
     <div class="container">
         <h1>Finalize seu cadastro!</h1>
-        <form action="{{route('auth.signup')}}" method="POST">
+        <form action="{{route('auth.SignUp')}}" method="POST">
             <div class="form-row">
                 <div class="form-group col-sm {{ $errors->has('nome') ? 'has-error' : '' }}">
                     <label for="inputNome">Nome:</label>

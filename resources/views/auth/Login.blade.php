@@ -37,7 +37,7 @@
             margin-left: 80px;
         }
     </style>
-    <form method="POST" action="{{route('auth.login')}}" class="form-group">
+    <form method="POST" action="{{route('auth.Login')}}" class="form-group">
         <div class="container" id="top-menu">
             <table>
                 <div class="row">

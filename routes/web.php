@@ -31,7 +31,7 @@ Route::get('/alert', function(){
  */
 Route::get('/signup', [
     'uses'=>'\App\Http\Controllers\AuthController@getSignup',
-    'as'=>'auth.signup',
+    'as'=>'auth.SignUp',
     'middleware'=>'guest'
 ]);
 Route::post('/signup', [
@@ -43,7 +43,7 @@ Route::post('/signup', [
  */
 Route::get('/login', [
     'uses'=>'\App\Http\Controllers\AuthController@getLogin',
-    'as'=>'auth.login',
+    'as'=>'auth.Login',
     'middleware'=>'guest'
 ]);
 Route::post('/login', [
