@@ -2,8 +2,8 @@
 @section('conteudo')
     <style>
         .conteudoCarregado{
-            margin-left: -40px;
-            padding: 0;
+            padding-left: 0px;
+            margin-left: 30px;
         }
         /* CSS DA PARTE DE CIMA - IMAGEM E BANNER*/
         #head {
