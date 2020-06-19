@@ -12,6 +12,9 @@
             border-radius: 4px;
             background-color: var(--card-color);
         }
+        h3{
+            color: var(--primaryText-color);
+        }
         /* CSS DO BOTÃO DE MUDAR TEMA */
         .theme-switch-wrapper {
             display: flex;

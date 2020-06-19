@@ -18,8 +18,13 @@ class HomeController extends Controller
             })->orderBy('created_at', 'desc')
             ->paginate(10);
 
+            $friends = Auth::user()->friends();
+            $friendRequests = Auth::user()->friendRequests();
+
             return view('timeline.Inicio')
                 ->with('status', $status)
+                ->with('friends', $friends)
+                ->with('friendRequests', $friendRequests)
                 ->with('authUserIsFriend', Auth::user()->isFriendsWith(Auth::user()));
         }
 

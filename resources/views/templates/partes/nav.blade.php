@@ -5,8 +5,8 @@
         background-color: var(--primary-color);
         position: fixed;
         height: 100%;
-        padding: 20px;
-        margin-top: 0;
+        padding: 10px;
+        top: 0;
         border-right: solid 1px var(--font-color);
     }
 
@@ -16,17 +16,33 @@
 
     }
     .nav button{
-        background-color: var(--card-color);
-    }
-    .nav button a{
+        background-color: transparent;
         color: var(--primaryText-color) !important;
+        border: none;
+    }
+    .nav button:hover{
+        background-color: var(--card-color);
+        border: none;
     }
 
-    a {
+    .nav a {
+        border: none;
+
+    }
+
+    a{
         text-decoration: none;
         transition: 0.3s;
-        color: var(--font-color);
         margin-right: 10px;
+    }
+    span{
+        background-color: red;
+        border-radius: 10px;
+        font-size: 8px;
+        padding: 5px;
+        margin-bottom: 20px;
+        position: absolute;
+        margin-left: 10px;
     }
 
     a:hover {
@@ -70,34 +86,38 @@
             <br>
             <ul class="nav navbar-nav">
                 <li>
-                    <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('home')}}"><i style="margin: 5px;" class="fa fa-home"></i> Página Inicial</a></button>
+                    <a href="{{route('home')}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px;" class="fa fa-home"></i> Página Inicial</button></a>
                 </li>
                 <li>
-                    <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('friends.Solicitações')}}"><i style="margin: 5px" class="fas fa-users"></i> Solicitações</a></button>
+                    @if ( !$friendRequests->count())
+                        <a href="{{route('friends.Solicitações')}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-users"></i> Solicitações</button></a>
+                    @else
+                        <span>{{$friendRequests->count()}}</span><a href="{{route('friends.Solicitações')}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-users"></i>Solicitações</button></a>
+                    @endif
                 </li>
                 <li>
-                    <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="#"><i style="margin: 5px" class="fas fa-bullhorn"></i> Notificações</a></button>
+                    <a href="#"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-bullhorn"></i> Notificações</button></a>
                 </li>
                 @endif
                 @if (Auth::check())
                     <li>
-                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}"><i style="margin: 5px" class="fas fa-user"></i> Perfil</a></li>
+                        <a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin:5px 15px 5px 5px" class="fas fa-user"></i>Perfil</button></a></li>
                     <li>
-                        <button style="border-radius: 25px" class="btn"><a href="{{route('config.Config')}}"><i style="margin: 5px" class="fas fa-cogs"></i> Configurações</a></button>
+                        <a href="{{route('config.Config')}}"><button style="border-radius: 25px" class="btn"><i style="margin: 5px" class="fas fa-cogs"></i> Configurações</button></a>
                     </li>
                     <div class="dropdown-divider"></div>
                     <li>
-                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="#" onclick="topFunction()" title="voltar ao topo"><i style="margin: 5px" class="fas fa-arrow-up"></i> Voltar ao Topo</a></button>
+                        <a href="#" onclick="topFunction()" title="voltar ao topo"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-arrow-up"></i> Voltar ao Topo</button></a>
                     </li>
                     <li>
-                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('auth.signout')}}"><i style="margin: 5px" class="fas fa-sign-out-alt"></i> Sair</a></button>
+                        <a href="{{route('auth.signout')}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-sign-out-alt"></i> Sair</button></a>
                     </li>
                 @else
                     <li>
-                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('auth.Login')}}"><i style="margin: 5px" class="fas fa-sign-in-alt"></i> Logar</a></button>
+                        <a href="{{route('auth.Login')}}"><button style="color: var(--primaryText-color) !important; border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-sign-in-alt"></i> Logar</button></a>
                     </li>
                     <li>
-                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn"><a href="{{route('auth.SignUp')}}"><i style="margin: 5px" class="fas fa-id-badge"></i> Criar Conta</a></button>
+                        <a href="{{route('auth.SignUp')}}"><button style="color: var(--primaryText-color) !important; border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-id-badge"></i> Criar Conta</button></a>
                     </li>
                 @endif
             </ul>

@@ -19,13 +19,15 @@ class FriendController extends Controller
     public static function getFriends($username)
     {
         $friends = Auth::user()->friends();
+        $friendRequests = Auth::user()->friendRequests();
         $user = User::where('username', $username)->first();
         if (!$user){
             abort(404);
         }
         return view('profile.friends')
             ->with('friends', $friends)
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('friendRequests', $friendRequests);
     }
 
     /**

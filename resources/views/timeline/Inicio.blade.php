@@ -5,11 +5,19 @@
         /* CSS GERAL DA PAGINA */
         #conteudoTimeline {
             margin-top: 20px;
-            padding-right: 10px;
+            padding-right: 20px;
             color: var(--primaryText-color);
         }
+        @media only screen and (max-width: 725px) {
+            .conteudoCarregado{
+                margin-top: 45px;
+                width: 90%;
+                margin-left: 25px;
+                margin-bottom: 50px;
+            }
+        }
 
-        /* CSS DO 'FAZER POSTAGEM' */
+            /* CSS DO 'FAZER POSTAGEM' */
         #postarStatus {
             background-color: var(--card-color)
         }
@@ -19,7 +27,6 @@
             background: var(--card-color);
             border: none;
             color: var(--primaryText-color);
-        !important;
         }
 
         /* CSS DOS STATUS CARREGADOS */
@@ -61,19 +68,17 @@
         .btn {
             background-color: var(--secondary-color);
             border: solid 1px var(--font-color);
-            color: var(--font-color);
         }
 
         .btn:hover, .btn:active {
             background-color: var(--primary-color);
             border: solid 1px var(--font-color);
-            color: var(--font-color);
         }
     </style>
 
     <!-- POSTAR STATUS -->
     <div id="conteudoTimeline" class="row">
-        <div class="status col-sm-12 col-lg-10">
+        <div class="status col-sm-12 col-lg-12">
             <form role="form" action="{{route('status.post')}}" method="post">
                 <div class='card' id="postarStatus">
                     <div class='card-body'>
@@ -94,7 +99,7 @@
         <!-- CARREGA TODOS OS STATUS POSTADOS -->
             @foreach($status as $post)
                 @if(Auth::user()->isFriendsWith($post->user) || Auth::user()->id===$post->user->id)
-                    <div class="status card col-sm-12 col-lg-10">
+                    <div class="status card col-sm-12 col-lg-12">
                         <div class='card-body'>
                             <div class="media">
                                 <a class="pull-left" href="{{route('profile.Perfil', ['username'=>$post->user->username]) }}">

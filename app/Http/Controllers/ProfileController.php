@@ -14,9 +14,14 @@ class ProfileController extends Controller
             abort(404);
         }
         $status = $user->status()->notReply()->get();
+        $friends = Auth::user()->friends();
+        $friendRequests = Auth::user()->friendRequests();
 
         return view('profile.Perfil')
             ->with('user', $user)
+            ->with('username', $username)
+            ->with('friends', $friends)
+            ->with('friendRequests', $friendRequests)
             ->with('status', $status)
             ->with('authUserIsFriend', Auth::user()->isFriendsWith($user));
     }
@@ -45,6 +50,10 @@ class ProfileController extends Controller
     }
 
     public function getConfig(){
-        return view('config.Config');
+        $friends = Auth::user()->friends();
+        $friendRequests = Auth::user()->friendRequests();
+        return view('config.Config')
+            ->with('friends', $friends)
+            ->with('friendRequests', $friendRequests);
     }
 }

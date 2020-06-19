@@ -4,11 +4,12 @@
     <style>
         .container{
             font-family: 'Josefin Sans', sans-serif;
-            margin-top: 100px;
+            margin-top: 80px;
             width: fit-content;
             height: auto;
             background-color: var(--primary-color);
             color: var(--font-color);
+            padding: 10px;
         }
         h1{
             padding: 5px;
@@ -23,7 +24,7 @@
             padding-bottom: 20px;
         }
     </style>
-    <div class="container">
+    <div id="SignUp" class="container">
         <h1>Finalize seu cadastro!</h1>
         <form action="{{route('auth.SignUp')}}" method="POST">
             <div class="form-row">

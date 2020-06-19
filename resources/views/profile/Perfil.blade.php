@@ -1,6 +1,10 @@
 @extends('templates.default')
 @section('conteudo')
     <style>
+        .conteudoCarregado{
+            margin-left: -40px;
+            padding: 0;
+        }
         /* CSS DA PARTE DE CIMA - IMAGEM E BANNER*/
         #head {
             width: available;
@@ -46,7 +50,6 @@
             background: var(--card-color);
             border: none;
             color: var(--primaryText-color);
-        !important;
         }
 
         ul#opcoes li {
@@ -67,13 +70,11 @@
         .btn {
             background-color: var(--secondary-color);
             border: solid 1px var(--font-color);
-            color: var(--font-color);
         }
 
         .btn:hover, .btn:active {
             background-color: var(--primary-color);
             border: solid 1px var(--font-color);
-            color: var(--font-color);
         }
     </style>
     <div id="head" class="container-fluid">
@@ -108,11 +109,11 @@
     <div class="tab-content rounded">
         <div class="tab-pane fade show active" id="nav-perfil" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="row">
-                <div class="itens col-lg-4 col-sm-12 ">
+                <div class="itens col-lg-4 col-sm-12">
                     <!-- INFOMAÇÕES PESSOAIS -->
                     <div class='status card'>
                         <div class='card-header' style="line-height: 35px">
-                            <i class="far fa-address-card"></i> Informações
+                            <i class="far fa-address-card"></i> Info
                             @if($user == Auth::user())
                                 <button type="button"
                                         class="headerButtons btn" data-toggle="modal" data-target="#exampleModal">
@@ -172,14 +173,13 @@
                     <div class='status card'>
                         <div class='card-header'>
                             <i class="fas fa-user-friends"></i> Amigos
-                            <a class="headerButtons" href="{{route('profile.friends', ['username' =>$user->username])}}">Mostrar
-                                todos</a>
+                            <a class="headerButtons" href="{{route('profile.friends', ['username' =>$user->username])}}">Todos</a>
                         </div>
                         <div class='card-body' style="margin-left: 20px">
                             <p>@if(!$user->friends()->count())
                                 <p>Ainda não adicionou ninguém!</p>
                                 @else
-                                    @foreach($user->friends()->take(6) as $user)
+                                    @foreach($user->friends()->take(4) as $user)
                                             @include('user/partials/userbasic')
                                 @endforeach
                                 @endif

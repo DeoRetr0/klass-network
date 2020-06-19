@@ -10,13 +10,14 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Righteous&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Concert+One&family=Odibee+Sans&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/982d993f59.js" crossorigin="anonymous"></script>
-    <title>Klass /
-        @if($view_name == "Perfil")
+    <title>
+        @if($view_name == "Perfil" )
 {{--            {{$view_name.' @'.$post ?? ''->user->username}}--}}
-            {{$view_name.' @Someone'}}
+            {{'@'.$username}}
         @else
             {{$view_name}}
         @endif
+        / Klass
     </title>
     <style>
         /* CSS BASE DOS TEMAS */
@@ -45,31 +46,39 @@
         /* CSS GERAL DE TODAS AS PAGINAS */
         body {
             background-color: var(--bg-color);
+            color: var(--primaryText-color) !important;
             color: var(--primaryText-color);
             overflow-x: hidden;
         }
         /* CSS DO QUE É CARREGADO (VIEWS) -- NÃO CONTA A SIDENAV*/
         .conteudoCarregado{
-            margin-left: 320px;
+            margin-left: -30px;
+            padding-right: 20px;
         }
         /* CSS MOBILE */
         .navbar{
             display: none;
         }
+        footer{
+            display: none;
+        }
         @media only screen and (max-width: 725px) {
             .navbar{
                 display: block;
-                margin: -10px;
-                bottom: 10px;
+                position: fixed;
+                z-index: 5;
+                width: 100%;
                 background-color: var(--primary-color);
                 border-bottom: 0.1ex solid white;
+                margin-top: -15px;
             }
             .conteudoCarregado{
+                margin-top: 45px;
+                width: 90%;
                 margin-left: 20px;
-                margin-right: 20px;
-                padding: 10px;
+                margin-bottom: 50px;
             }
-            #barra2{
+            .barra2{
                 display: none;
             }
             #buscar{
@@ -87,22 +96,9 @@
             .navbar ul{
                 margin-top: 10px;
             }
-            button.navbar-toggler {
-                width: 35px;
-                height: 35px;
-                margin-top: 20px;
-                margin-left: 20px;
-                background-color: var(--hover-color);
-
-            }
-            span.navbar-toggler-icon{
-                height: 20px;
-                width: 20px;
-                margin-left: -5px;
-            }
             #topo {
                 position: fixed;
-                bottom: 20px;
+                bottom: 75px;
                 right: 30px;
                 z-index: 5;
                 border: none;
@@ -113,6 +109,29 @@
                 padding: 10px;
                 border-radius: 10px;
                 font-size: 15px;
+            }
+            span{
+                background-color: red;
+                border-radius: 10px;
+                font-size: 8px;
+                padding: 5px;
+                margin-bottom: 20px;
+                position: absolute;
+                margin-left: 10px;
+            }
+            footer{
+                display: block;
+                background-color: var(--bg-color);
+                color: var(--primaryText-color);
+                text-align: center;
+            }
+            footer ul{
+                padding-top: 10px;
+                margin-left: -30px;
+            }
+            footer li{
+                display: inline;
+                margin: 10px;
             }
         }
     </style>
@@ -144,37 +163,64 @@
                 </div>
             </form>
         @endif
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        @if(Auth::check())
-        <ul class="nav navbar-nav">
-            <li><a href="{{route('home')}}">Página Inicial</a></li>
-            <li><a href="{{route('friends.Solicitações')}}">Solicitações</a></li>
-            <li style="margin-top: 3px"><a href="#">Notificações</a></li>
-            @endif
+        <ul style="display: inline" class="nav navbar-nav">
             @if (Auth::check())
-                <li><a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}">Perfil</a></li>
-                <li><a href="{{route('config.Config')}}">Configurações</a></li>
-                <div class="dropdown-divider"></div>
-                <li><a href="{{route('auth.signout')}}">Sair</a></li>
+                <li><a href="{{route('auth.signout')}}">
+                        <button style="border-radius: 25px; margin-top: 12px;" class="btn"><i class="fas fa-sign-out-alt fa-lg"></i></button>
+                    </a></li>
             @else
-                <li><a href="{{route('auth.Login')}}">Logar</a></li>
-                <li><a href="{{route('auth.SignUp')}}">Criar Conta</a></li>
+                <li style="display: inline"><a href="{{route('auth.Login')}}">
+                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn">Logar</button>
+                    </a></li>
+                <li style="display: inline"><a href="{{route('auth.SignUp')}}">
+                        <button style="border-radius: 25px; margin-bottom: 5px" class="btn">Criar Conta</button>
+                    </a></li>
             @endif
         </ul>
     </div>
 </nav>
 <div class="row">
-    <span id="barra2">
+    <div class="barra2 col-sm-12 col-lg-3">
         @include('templates.partes.nav')
-    </span>
-    <div class="conteudoCarregado col-sm-12 col-lg-8">
+    </div>
+    <div class="conteudoCarregado col-sm-12 col-lg-6">
         @include('templates.partes.alerts')
         @yield('conteudo')
     </div>
+    @if (Auth::check())
+    <footer class="fixed-bottom col-12">
+        <ul>
+            <li>
+                <a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}">
+                    <i class="fas fa-user"></i>
+                </a>
+            </li>
+            <li>
+                @if ( !$friendRequests->count())
+                    <a href="{{route('friends.Solicitações')}}"><i class="fas fa-users"></i></a>
+                @else
+                    <span>{{$friendRequests->count()}}</span><a href="{{route('friends.Solicitações')}}"><i class="fas fa-users"></i></a>
+                @endif
+            </li>
+            <li>
+                <a href="{{route('home')}}">
+                    <button style="border-radius: 25px; background-color: var(--primary-color); color: var(--primaryText-color)" class="btn"><i class="fa fa-home fa-lg"></i></button>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-bullhorn"></i>
+                </a>
+            </li>
+            <li><a href="{{route('config.Config')}}">
+                    <i class="fas fa-cogs"></i>
+                </a></li>
+        </ul>
+    </footer>
+    <div class="barra2 col-sm-12 col-lg-3">
+        @include('templates.partes.right')
+    </div>
+    @endif
 </div>
 <button onclick="topFunction()" id="topo" title="Voltar ao topo"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
 </body>
