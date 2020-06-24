@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -24,6 +25,21 @@ class ProfileController extends Controller
             ->with('friendRequests', $friendRequests)
             ->with('status', $status)
             ->with('authUserIsFriend', Auth::user()->isFriendsWith($user));
+    }
+
+    public function atualizarImagem(Request $request){
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time().'.'.$avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/'.$filename));
+
+            $user = Auth::user();
+            $user->avatar = $filename;
+            $user->save();
+            return redirect()
+                ->back()
+                ->with('info', 'Sua imagem foi atualizada!');
+        }
     }
 
     public function postEdit(Request $request){

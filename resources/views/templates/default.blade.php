@@ -52,8 +52,7 @@
         }
         /* CSS DO QUE É CARREGADO (VIEWS) -- NÃO CONTA A SIDENAV*/
         .conteudoCarregado{
-            margin-left: -30px;
-            padding-right: 20px;
+            left: -3%;
         }
         /* CSS MOBILE */
         .navbar{
@@ -188,38 +187,38 @@
         @yield('conteudo')
     </div>
     @if (Auth::check())
-    <footer class="fixed-bottom col-12">
-        <ul>
-            <li>
-                <a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}">
-                    <i class="fas fa-user"></i>
-                </a>
-            </li>
-            <li>
-                @if ( !$friendRequests->count())
-                    <a href="{{route('friends.Solicitações')}}"><i class="fas fa-users"></i></a>
-                @else
-                    <span>{{$friendRequests->count()}}</span><a href="{{route('friends.Solicitações')}}"><i class="fas fa-users"></i></a>
-                @endif
-            </li>
-            <li>
-                <a href="{{route('home')}}">
-                    <button style="border-radius: 25px; background-color: var(--primary-color); color: var(--primaryText-color)" class="btn"><i class="fa fa-home fa-lg"></i></button>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fas fa-bullhorn"></i>
-                </a>
-            </li>
-            <li><a href="{{route('config.Config')}}">
-                    <i class="fas fa-cogs"></i>
-                </a></li>
-        </ul>
-    </footer>
     <div class="barra2 col-sm-12 col-lg-3">
         @include('templates.partes.right')
     </div>
+        <footer class="fixed-bottom">
+            <ul>
+                <li>
+                    <a href="{{route('profile.Perfil', ['username'=>Auth::user()->username])}}">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </li>
+                <li>
+                    @if ( !$friendRequests->count())
+                        <a href="{{route('friends.Solicitações')}}"><i class="fas fa-users"></i></a>
+                    @else
+                        <span>{{$friendRequests->count()}}</span><a href="{{route('friends.Solicitações')}}"><i class="fas fa-users"></i></a>
+                    @endif
+                </li>
+                <li>
+                    <a href="{{route('home')}}">
+                        <button style="border-radius: 25px; background-color: var(--primary-color); color: var(--primaryText-color)" class="btn"><i class="fa fa-home fa-lg"></i></button>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-bullhorn"></i>
+                    </a>
+                </li>
+                <li><a href="{{route('config.Config')}}">
+                        <i class="fas fa-cogs"></i>
+                    </a></li>
+            </ul>
+        </footer>
     @endif
 </div>
 <button onclick="topFunction()" id="topo" title="Voltar ao topo"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>

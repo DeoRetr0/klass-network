@@ -82,6 +82,7 @@ Route::post('/profile/edit', [
     'uses'=>'\App\Http\Controllers\ProfileController@postEdit',
     'middleware'=>['auth'],
 ]);
+Route::post('/mudarImagem', 'ProfileController@atualizarImagem');
 
 /*
  * AMIGOS

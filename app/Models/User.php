@@ -19,6 +19,7 @@ class User extends Authenticatable
         'nome',
         'sobrenome',
         'email',
+        'avatar',
         'username',
         'password',
         'dataNascimento',

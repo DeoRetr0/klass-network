@@ -46,6 +46,7 @@
         /* CSS GERAL DA FOTO DOS STATUS */
         .foto {
             border-radius: 50px;
+            width: 60px;
         }
 
         /* CSS DA LISTA 'CURTIR','X CURTIDAS' */
@@ -105,7 +106,7 @@
                                 <a class="pull-left" href="{{route('profile.Perfil', ['username'=>$post->user->username]) }}">
                                     <img class="foto media-object"
                                          alt="{{$post->user->getName()}}"
-                                         src="{{ $post->user->getAvatarUrlBasic()}}">
+                                         src="{{URL::asset("uploads/avatars/{$post->user->avatar}")}}">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="media-heading"><a
@@ -139,7 +140,7 @@
                                                href="{{route('profile.Perfil', ['username' => $reply->user->username])}}">
                                                 <img class="foto media-object"
                                                      alt="{{$reply->user->getName()}}"
-                                                     src="{{$reply->user->getAvatarUrlBasic()}}">
+                                                     src="{{URL::asset("uploads/avatars/{$reply->user->avatar}")}}">
                                             </a>
                                             <div class="media-body">
                                                 <h6>

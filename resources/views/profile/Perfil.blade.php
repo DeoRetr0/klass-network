@@ -1,9 +1,11 @@
 @extends('templates.default')
 @section('conteudo')
     <style>
+        @media only screen and (max-width: 725px) {
         .conteudoCarregado{
             padding-left: 0px;
-            margin-left: 30px;
+            left: 3%;
+        }
         }
         /* CSS DA PARTE DE CIMA - IMAGEM E BANNER*/
         #head {
@@ -84,6 +86,12 @@
                 <div id="mudarBanner">
                     <button type="submit" class="btn">Mudar banner</button>
                 </div>
+                <form enctype="multipart/form-data" method="post" action="/mudarImagem">
+                    <label>Mudar Imagem de Perfil</label><br>
+                    <input type="file" name="avatar"><br>
+                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <input type="submit" class="btn-sm btn-primary">
+                </form>
             @endif
             @include('user.partials.userblock')
             @if ( Auth::user()->hasFriendRequestPending($user) )
@@ -209,9 +217,9 @@
                                     <div class="media" style="margin-top: 0">
                                         <a class="pull-left"
                                            href="{{route('profile.Perfil', ['username'=>$post->user->username]) }}">
-                                            <img style="border-radius: 50px" class="media-object"
+                                            <img style="border-radius: 50px; width: 60px" class="media-object"
                                                  alt="{{$post->user->getName()}}"
-                                                 src="{{ $post->user->getAvatarUrlBasic()}}">
+                                                 src="{{URL::asset("uploads/avatars/{$post->user->avatar}")}}">
                                         </a>
                                         <div class="media-body">
                                             <h4 class="media-heading"><a
@@ -244,9 +252,9 @@
                                                 <div class="collapse media" style="margin-top: 5px">
                                                     <a class="pull-left"
                                                        href="{{route('profile.Perfil', ['username' => $reply->user->username])}}">
-                                                        <img style="border-radius: 50px" class="media-object"
+                                                        <img style="border-radius: 50px; width: 60px" class="media-object"
                                                              alt="{{$reply->user->getName()}}"
-                                                             src="{{$reply->user->getAvatarUrlBasic()}}">
+                                                             src="{{URL::asset("uploads/avatars/{$reply->user->avatar}")}}">
                                                     </a>
                                                     <div class="media-body">
                                                         <h6>
