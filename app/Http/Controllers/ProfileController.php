@@ -31,7 +31,9 @@ class ProfileController extends Controller
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time().'.'.$avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save(public_path('storage/uploads/avatars/'.$filename));
+            $source = storage_path().'/app/public/storage/'.$avatar;
+            $target = public_path('storage/' . $filename);
+            Image::make($source)->resize(300, 300)->save($target);
 
             $user = Auth::user();
             $user->avatar = $filename;
