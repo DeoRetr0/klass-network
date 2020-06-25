@@ -86,12 +86,14 @@
                 <div id="mudarBanner">
                     <button type="submit" class="btn">Mudar banner</button>
                 </div>
-                <form enctype="multipart/form-data" method="post" action="/mudarImagem">
+            <div class="container" style="background-color: #3b404f; width: fit-content; margin: 0;">
+                <form enctype="multipart/form-data" method="post" action="/mudarImagem" style="padding: 5px">
                     <label>Mudar Imagem de Perfil</label><br>
                     <input type="file" name="avatar"><br>
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    <input type="submit" class="btn-sm btn-primary">
+                    <input type="submit" class="btn-sm btn-primary" style="margin-top: 5px">
                 </form>
+            </div>
             @endif
             @include('user.partials.userblock')
             @if ( Auth::user()->hasFriendRequestPending($user) )
