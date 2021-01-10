@@ -26,7 +26,7 @@ class AuthController extends Controller
             'sobrenome'=>$request->input('sobrenome'),
             'faculdade'=>$request->input('faculdade'),
             'curso'=>$request->input('curso'),
-            'dataNascimento'=>$request->input('dataNascimento'),
+            'data_nascimento'=>$request->input('data_nascimento'),
             'password'=>bcrypt($request->input('password')),
         ]);
 
