@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/php8-alpha3
 .env
 .env.backup
 .phpunit.result.cache
