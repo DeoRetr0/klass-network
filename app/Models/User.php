@@ -22,7 +22,7 @@ class User extends Authenticatable
         'avatar',
         'username',
         'password',
-        'dataNascimento',
+        'nasceuEm',
         'faculdade',
         'curso',
         'sobre',

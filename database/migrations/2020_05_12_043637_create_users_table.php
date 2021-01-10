@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->default('user.jpg');
             $table->string('nome');
             $table->string('sobrenome');
+            $table->string('nasceuEm');
             $table->string('username')->unique();
             $table->string('sobre')->nullable();
             $table->string('personalidade')->nullable();
