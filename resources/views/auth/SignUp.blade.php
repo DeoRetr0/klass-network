@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group col-sm">
                     <label id="inputSenha">Senha:</label>
-                    <input required type="password" class="form-control" id="inputSenha" placeholder="Senha" minlength="8" name="password">
+                    <input required type="password" class="form-control" id="inputSenha" placeholder="Senha" minlength="8" name="senha">
                 </div>
             </div>
             <div class="form-row">
