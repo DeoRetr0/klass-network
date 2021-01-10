@@ -60,11 +60,11 @@
             <div class="form-row">
                 <div class="form-group col-sm">
                     <label id="inputDataNascimento">Data de Nascimento:</label>
-                    <input required type="date" class="form-control" id="inputDataNascimento" placeholder="Data de Nascimento" name="nasceuEm" required>
+                    <input required type="date" class="form-control" id="inputDataNascimento" placeholder="Data de Nascimento" name="dataNascimento" required>
                 </div>
                 <div class="form-group col-sm">
                     <label id="inputSenha">Senha:</label>
-                    <input required type="password" class="form-control" id="inputSenha" placeholder="Senha" minlength="8" name="senha">
+                    <input required type="password" class="form-control" id="inputSenha" placeholder="Senha" minlength="8" name="password">
                 </div>
             </div>
             <div class="form-row">
