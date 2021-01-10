@@ -60,7 +60,7 @@
             <div class="form-row">
                 <div class="form-group col-sm">
                     <label id="inputDataNascimento">Data de Nascimento:</label>
-                    <input required type="date" class="form-control" id="inputDataNascimento" placeholder="Data de Nascimento" name="dataNascimento" required>
+                    <input required type="date" class="form-control" id="inputDataNascimento" placeholder="Data de Nascimento" name="data_nascimento" required>
                 </div>
                 <div class="form-group col-sm">
                     <label id="inputSenha">Senha:</label>
