@@ -5,7 +5,6 @@
         /* CSS GERAL DA PAGINA */
         #conteudoTimeline {
             margin-top: 20px;
-            padding: 10px;
             color: var(--primaryText-color);
         }
         @media only screen and (max-width: 725px) {

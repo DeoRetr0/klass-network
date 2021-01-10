@@ -3,7 +3,6 @@
 
     #conteudoGeral{
         position: fixed;
-        left: 73%;
         padding: 10px;
         border-left: 1px solid white;
         height: 100%;

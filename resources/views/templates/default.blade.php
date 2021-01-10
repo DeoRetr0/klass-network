@@ -52,7 +52,7 @@
         }
         /* CSS DO QUE É CARREGADO (VIEWS) -- NÃO CONTA A SIDENAV*/
         .conteudoCarregado{
-            left: -3%;
+            
         }
         /* CSS MOBILE */
         .navbar{
