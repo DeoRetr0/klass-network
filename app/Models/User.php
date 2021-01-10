@@ -59,10 +59,6 @@ class User extends Authenticatable
         return null;
     }
 
-    public function getCustomAvatar(){
-        return $this-> URL::asset("public/uploads/avatars/$user->avatar");
-    }
-
     public function getAvatarUrl()
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));
