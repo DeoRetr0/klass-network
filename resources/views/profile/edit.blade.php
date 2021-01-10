@@ -26,6 +26,20 @@
         <h3>Atualize suas informações</h3>
         <div id="conteudoAtualizar" class="row">
             <div class="container">
+                <div id="mudarImagens">
+                    <form enctype="multipart/form-data" method="post" action="/mudarBanner" style="padding: 5px">
+                        <label>Mudar Banner</label><br>
+                        <input type="file" name="banner"><br>
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="submit" class="btn-sm btn-primary" style="margin-top: 5px">
+                    </form>
+                    <form enctype="multipart/form-data" method="post" action="/mudarImagem" style="padding: 5px">
+                        <label>Mudar Imagem de Perfil</label><br>
+                        <input type="file" name="avatar"><br>
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="submit" class="btn-sm btn-primary" style="margin-top: 5px">
+                    </form>
+                </div>
                 <form class="form-vertical" method="POST" action="{{route('profile.edit')}}">
                     <div class="row">
                         <div class="col-6">

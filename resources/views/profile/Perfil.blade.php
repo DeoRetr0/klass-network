@@ -16,9 +16,10 @@
 
         #banner {
             padding: 5px;
-            background-image: url("https://seeoutlook.com/wp-content/uploads/2018/09/FB-COVER.jpg");
+            background-image: url("{{asset('uploads/banners/'.$user->banner)}}");
             background-repeat: no-repeat;
             border: 1px white solid;
+            background-size:cover;
         }
 
         #mudarBanner {
@@ -82,19 +83,6 @@
     <div id="head" class="container-fluid">
         <!-- INFORMAÇÕES DO USUARIO -->
         <div id="banner">
-            @if($user == Auth::user())
-                <div id="mudarBanner">
-                    <button type="submit" class="btn">Mudar banner</button>
-                </div>
-            <div class="container" style="background-color: #3b404f; width: fit-content; margin: 0;">
-                <form enctype="multipart/form-data" method="post" action="/mudarImagem" style="padding: 5px">
-                    <label>Mudar Imagem de Perfil</label><br>
-                    <input type="file" name="avatar"><br>
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                    <input type="submit" class="btn-sm btn-primary" style="margin-top: 5px">
-                </form>
-            </div>
-            @endif
             @include('user.partials.userblock')
             @if ( Auth::user()->hasFriendRequestPending($user) )
                 <p>Aguardando {{ $user->getName() }} aceitar seu pedido</p>
@@ -145,9 +133,9 @@
                             @else
                                 <p><i class="fas fa-home fa-lg"></i> {{$user->localizacao}}</p>
                             @endif
-                            @if($user->nasceuEm == '')
+                            @if($user->data_nascimento == '')
                             @else
-                                <p><i class="fas fa-map-marker fa-lg"></i> {{$user->nasceuEm}}</p>
+                                <p><i class="fas fa-map-marker fa-lg"></i> {{$user->data_nascimento}}</p>
                             @endif
                             @if($user->relacionamento == '')
                             @else

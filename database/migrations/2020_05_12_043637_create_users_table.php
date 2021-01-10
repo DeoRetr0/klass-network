@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('avatar')->default('user.jpg');
+            $table->string('banner');
             $table->string('nome');
             $table->string('sobrenome');
             $table->date('data_nascimento');

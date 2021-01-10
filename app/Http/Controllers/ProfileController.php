@@ -42,6 +42,21 @@ class ProfileController extends Controller
         }
     }
 
+    public function atualizarBanner(Request $request){
+        if($request->hasFile('banner')){
+            $banner = $request->file('banner');
+            $filename = time().'.'.$banner->getClientOriginalExtension();
+            Image::make($banner)->save('uploads/banners/'.$filename);
+
+            $user = Auth::user();
+            $user->banner = $filename;
+            $user->save();
+            return redirect()
+                ->back()
+                ->with('info', 'Seu banner foi atualizada!');
+        }
+    }
+
     public function postEdit(Request $request){
         $this->validate($request, [
             'nome'=>'alpha|max:30',
