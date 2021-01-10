@@ -70,8 +70,8 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="nasceuEm" class="control-label">Nasceu em:</label>
-                                <input type="text" name="nasceuEm" class="form-control" id="nasceuEm" value="{{ Request::old('nasceuEm')?:Auth::user()->nasceuEm }}">
+                                <label for="data_nascimento" class="control-label">Nasceu em:</label>
+                                <input type="text" name="data_nascimento" class="form-control" id="nasceuEm" value="{{ Request::old('data_nascimento')?:Auth::user()->data_nascimento }}">
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                             <div class="form-group">
                                 <label for="relacionamento" class="control-label">Relacionamento:</label>
                                 <select class="form-control" name="relacionamento">
-                                    {{$rel = DB::table('relacionamento')->pluck('meuRelacionamento')}}
+                                    {{$rel = DB::table('relacionamento')->pluck('relacionamento')}}
                                     <option value="{{ Request::old('relacionamento')?:Auth::user()->relacionamento }}">{{ Request::old('relacionamento')?:Auth::user()->relacionamento }}</option>
                                     @foreach($rel as $relacionamento)
                                         <option value="{{$relacionamento}}">{{$relacionamento}}</option>

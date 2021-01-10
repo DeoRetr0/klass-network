@@ -24,11 +24,11 @@ class CreateUsersTable extends Migration
             $table->date('data_nascimento');
             $table->string('username')->unique();
             $table->string('sobre')->nullable();
-            $table->string('personalidade')->nullable();
+            $table->string('trabalho')->nullable();
             $table->string('localizacao')->nullable();
             $table->string('faculdade');
             $table->string('curso');
-            $table->integer('telefone')->nullable();
+            $table->string('relacionamento')->nullable();
             $table->string('remember_token')->nullable();
             $table->timestamps();
         });

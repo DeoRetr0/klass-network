@@ -15,7 +15,7 @@ class CreateRelacionamentoTable extends Migration
     {
         Schema::create('relacionamento', function (Blueprint $table) {
             $table->id();
-            $table->string('meuRelacionamento');
+            $table->string('relacionamento');
             $table->timestamps();
         });
     }
