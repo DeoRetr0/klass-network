@@ -6,6 +6,7 @@
         #conteudoTimeline {
             margin-top: 20px;
             color: var(--primaryText-color);
+            margin-left: -36px;
         }
         @media only screen and (max-width: 725px) {
             .conteudoCarregado{
@@ -13,6 +14,9 @@
                 width: 90%;
                 margin-left: 25px;
                 margin-bottom: 50px;
+            }
+            .status{
+                margin-left: 10px;
             }
         }
 

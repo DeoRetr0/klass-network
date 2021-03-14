@@ -15,8 +15,9 @@ class SearchController extends Controller
         if(!$query){
             return redirect()->route('home');
         }
-        $users = User::where(DB::raw("CONCAT(nome,' ', sobrenome)"), 'LIKE', "%{$query}%")
+        $users = User::where(DB::raw("CONCAT(nome,' ', sobrenome)"), 'ILIKE', "%{$query}%")
             ->orWhere('nome', 'LIKE', "%{$query}%")
+            ->orWhere('username', 'LIKE', "%{$query}%")
             ->get();
         $friends = Auth::user()->friends();
         $friendRequests = Auth::user()->friendRequests();

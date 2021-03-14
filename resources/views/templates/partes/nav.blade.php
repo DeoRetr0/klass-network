@@ -8,6 +8,7 @@
         padding: 10px;
         top: 0;
         border-right: solid 1px var(--font-color);
+        width: 23vw;
     }
 
     #navbarContent {

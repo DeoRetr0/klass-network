@@ -62,6 +62,9 @@
             display: none;
         }
         @media only screen and (max-width: 725px) {
+            .trending{
+                display: none;
+            }
             .navbar{
                 display: block;
                 position: fixed;
@@ -76,9 +79,6 @@
                 width: 90%;
                 margin-left: 20px;
                 margin-bottom: 50px;
-            }
-            .barra2{
-                display: none;
             }
             #buscar{
                 width: 80%;
@@ -179,7 +179,7 @@
     </div>
 </nav>
 <div class="row">
-    <div class="barra2 col-sm-12 col-lg-3">
+    <div class="col-sm-12 col-lg-3">
         @include('templates.partes.nav')
     </div>
     <div class="conteudoCarregado col-sm-12 col-lg-6">
@@ -187,7 +187,7 @@
         @yield('conteudo')
     </div>
     @if (Auth::check())
-    <div class="barra2 col-sm-12 col-lg-3">
+    <div class="trending col-sm-12 col-lg-3">
         @include('templates.partes.right')
     </div>
         <footer class="fixed-bottom">
