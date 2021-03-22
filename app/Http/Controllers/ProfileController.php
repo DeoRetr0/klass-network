@@ -17,9 +17,13 @@ class ProfileController extends Controller
         $status = $user->status()->notReply()->get();
         $friends = Auth::user()->friends();
         $friendRequests = Auth::user()->friendRequests();
+        $avatar = Auth::user()->getAvatar();
+        $banner = Auth::user()->getBanner();
 
         return view('profile.Perfil')
             ->with('user', $user)
+            ->with('avatar', $avatar)
+            ->with('banner', $banner)
             ->with('username', $username)
             ->with('friends', $friends)
             ->with('friendRequests', $friendRequests)

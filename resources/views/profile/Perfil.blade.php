@@ -16,7 +16,7 @@
 
         #banner {
             padding: 5px;
-            background-image: url("{{asset('uploads/banners/'.$user->banner)}}");
+            background-image: url("{{asset('uploads/banners/'.$user->getBanner())}}");
             background-repeat: no-repeat;
             border: 1px white solid;
             background-size:cover;

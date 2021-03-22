@@ -13,7 +13,7 @@
 </style>
 <div class="media" style="color: var(--primaryText-color); background-color: var(--bg-color); width: max-content; padding: 10px">
     <a href="{{route('profile.Perfil', ['username' =>$user->username])}}" class="pull-left">
-        <img id="imgprincipal" class="media-object" src="{{asset('uploads/avatars/'.$user->avatar)}}" alt="{{$user->getName()}}">
+        <img id="imgprincipal" class="media-object" src="{{asset('uploads/avatars/'.$user->getAvatar())}}" alt="{{$user->getName()}}">
     </a>
     <div style="margin-bottom: -10px; margin-top: -5px" class="media-body">
         <h4 class="media-heading"><a href="{{route('profile.Perfil', ['username' =>$user->username])}}">{{$user->getName()}}</a></h4>

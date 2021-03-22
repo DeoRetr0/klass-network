@@ -59,15 +59,15 @@ class User extends Authenticatable
         return null;
     }
 
-    public function getAvatarUrl()
+    public function getAvatar()
     {
-        $hash = md5(strtolower(trim($this->attributes['email'])));
-        return "https://s.gravatar.com/avatar/$hash?s=100&d=mm";
+        return $this->avatar;
     }
-    public function getAvatarUrlBasic()
+
+    
+    public function getBanner()
     {
-        $hash = md5(strtolower(trim($this->attributes['email'])));
-        return "https://s.gravatar.com/avatar/$hash?s=61&d=mm";
+        return $this->banner;
     }
 
     public function status(){
