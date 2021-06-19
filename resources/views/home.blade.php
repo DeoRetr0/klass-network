@@ -1,5 +1,4 @@
 @extends('templates.default')
-
 @section('conteudo')
     <style>
         #home{

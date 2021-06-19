@@ -2,8 +2,7 @@
         #atualizarPerfil{
             padding: 10px;
             background-color: var(--primary-color);
-            width: fit-content;
-            margin: 50px auto;
+            width: auto;
             color: white;
             font-family: 'Josefin Sans', sans-serif;
         }

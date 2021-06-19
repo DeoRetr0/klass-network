@@ -12,7 +12,7 @@ class FriendController extends Controller
     {
         $friends = Auth::user()->friends();
         $friendRequests = Auth::user()->friendRequests();
-        return view('friends.Solicitações')
+        return view('friends.Solicitacoes')
             ->with('friends', $friends)
             ->with('friendRequests', $friendRequests);
     }
@@ -24,7 +24,7 @@ class FriendController extends Controller
         if (!$user){
             abort(404);
         }
-        return view('profile.friends')
+        return view('profile.Followers')
             ->with('friends', $friends)
             ->with('user', $user)
             ->with('friendRequests', $friendRequests);

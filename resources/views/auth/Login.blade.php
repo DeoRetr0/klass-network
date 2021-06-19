@@ -1,5 +1,5 @@
 @extends('templates.default')
-
+@section('pageTitle', 'Login')
 @section('conteudo')
     <style>
         .container {
@@ -65,10 +65,7 @@
                             </tr>
                         <tr class="row tag">
                             <td>
-                                <input type="checkbox" name="rememberMe" id="rememberMe">
-                                <label for="rememberMe">Lembre-se de Mim</label><br>
-                            <a href="#">Esqueci minha senha!</a></td>
-
+                            <a href="{{route('auth.PasswordForget')}}">Esqueci minha senha!</a></td>
                         </tr>
                     </div>
                 </div>

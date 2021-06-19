@@ -15,7 +15,9 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    //mysql is PRODUCTION
+    //pgsql is TESTING
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -47,11 +49,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'ec2-34-237-166-54.compute-1.amazonaws.com'),
+            'host' => env('DB_HOST', '31.170.161.85'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'd6f4d50ceul7sh'),
-            'username' => env('DB_USERNAME', 'xidwdipcotjvjo'),
-            'password' => env('DB_PASSWORD', '9d3f6e682d1969619a347adc67f4ee10860ac4c9637934a1d4a26db86c91aef9'),
+            'database' => env('DB_DATABASE', 'u617797809_klassDB'),
+            'username' => env('DB_USERNAME', 'u617797809_josue'),
+            'password' => env('DB_PASSWORD', 'I7]nN@p!x'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

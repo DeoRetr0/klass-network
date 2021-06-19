@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Like;
 
-
 class StatusController extends Controller
 {
     public function postStatus(Request $request)
@@ -52,12 +51,12 @@ class StatusController extends Controller
         return redirect()->back();
     }
 
-    public function getLike($statusId)
+    public function postLike($statusId)
     {
         $status = Status::find($statusId);
 
         if (!$status){
-            return redirect()->status('home');
+            return redirect()->route('home');
         }
         if (!Auth::user()->isFriendsWith($status->user)){
             return redirect()->route('home');
@@ -70,7 +69,21 @@ class StatusController extends Controller
             'user_id' => auth()->id()
         ]);
         Auth::user()->likes()->save($like);
+        $likesCount = $this->getLike($statusId);
+        return ['likes' => $likesCount];
+    }
 
-        return redirect()->back();
+    public function getLike($statusId)
+    {
+        $status = new Status();
+        $status = $status->likeCount($statusId);
+        return  $status->likes_count;
     }
 }
+
+/*    public function getLike($statusId)
+{
+    $status = new Status();
+    $status = $status->likeCount($statusId);
+    return  $status->likes_count;
+} */

@@ -11,7 +11,8 @@ class Status extends Model
     protected $table = 'status';
     protected $fillable = [
         'body',
-        'user_id'
+        'user_id',
+        'likeable_id'
     ];
 
     public function User(){
@@ -32,5 +33,15 @@ class Status extends Model
     {
         return $this->morphMany('App\Models\Like', 'likeable');
     }
+
+    public function likeCount($id){ 
+        return $this->where('id', $id)->withCount('likes')->first();
+    }
 }
+
+/* 
+    public function likeCount($id){ 
+        return $this->where('id', $id)->withCount('likes')->first();
+    }
+*/
 

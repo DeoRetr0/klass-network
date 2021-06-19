@@ -1,5 +1,5 @@
 @extends('templates.default')
-
+@section('pageTitle', 'Criar Conta')
 @section('conteudo')
     <style>
         .container{
@@ -50,7 +50,7 @@
                 <div class="form-group col-sm">
                     <label id="inputCurso">Curso:</label>
                     <select class="form-control" name="curso" id="cursos" required>
-                        {{$cur = DB::table('cursos')->pluck('curso')}}
+                        {{$cur = DB::table('cursos')->distinct()->pluck('curso')}}
                         @foreach($cur as $curso)
                             <option value="{{$curso}}">{{$curso}}</option>
                         @endforeach

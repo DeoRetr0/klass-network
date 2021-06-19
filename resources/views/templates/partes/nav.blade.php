@@ -91,9 +91,9 @@
                 </li>
                 <li>
                     @if ( !$friendRequests->count())
-                        <a href="{{route('friends.Solicitações')}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-users"></i> Solicitações</button></a>
+                        <a href="{{route('friends.Solicitacoes')}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-users"></i> Solicitações</button></a>
                     @else
-                        <span>{{$friendRequests->count()}}</span><a href="{{route('friends.Solicitações')}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-users"></i>Solicitações</button></a>
+                        <span>{{$friendRequests->count()}}</span><a href="{{route('friends.Solicitacoes')}}"><button style="border-radius: 25px; margin-bottom: 5px" class="btn"><i style="margin: 5px" class="fas fa-users"></i>Solicitações</button></a>
                     @endif
                 </li>
                 <li>

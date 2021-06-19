@@ -22,5 +22,21 @@
             <p>{{$user->faculdade}}<br>
                 {{$user->curso}}</p>
         @endif
+        @if ( Auth::user()->hasFriendRequestPending($user) )
+        <p style="margin-top: -10px;">Aguardando {{ $user->getName() }} aceitar seu pedido</p>
+        @elseif ( Auth::user()->hasFriendRequestReceived($user) )
+        <a style="margin-top: -10px;" href="{{ route('friends.accept', ['username' => $user->username]) }}" class="btn btn-success">Aceitar
+            seguidor</a>
+        @elseif ( Auth::user()->isFriendsWith($user) )
+        <form action="{{route('friends.delete', ['username' => $user->username])}}" method="post" style="margin-top: -5px">
+            <input id="desAmigo" type="submit" class="btn btn-danger btn-sm" value="Deixar de Seguir">
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+        </form>
+        @elseif ( Auth::user()->id !== $user->id)
+        <a href="{{ route('friends.add', ['username' => $user->username]) }}" class="btn btn-success"
+            style="margin-top: -10px; padding: -10px">
+            Seguir
+        </a>
+        @endif
     </div>
 </div>

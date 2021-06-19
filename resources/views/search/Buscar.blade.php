@@ -1,5 +1,5 @@
 @extends('templates.default')
-
+@section('pageTitle', 'Buscar')
 @section('conteudo')
     <style>
         #resultados{

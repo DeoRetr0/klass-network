@@ -1,5 +1,5 @@
 @extends('templates.default')
-
+@section('pageTitle', 'Solicitações')
 @section('conteudo')
 <style>
         #allConteudo{
@@ -30,7 +30,6 @@
                 @foreach ($friendRequests as $user)
                     <div class="pull-right" class="dropdown-item">
                     @include('user/partials/userblock')
-                        <a href="{{ route('friends.accept', ['username' => $user->username]) }}" id="aceitar" class="btn btn-primary">Aceitar</a>
                     </div>
                     <div class="dropdown-divider"></div>
                 @endforeach

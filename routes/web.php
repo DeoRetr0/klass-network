@@ -39,7 +39,7 @@ Route::post('/signup', [
     'middleware'=>'guest'
 ]);
 /*
- * SIGN-IN // LOGAR // SAIR/SIGNOUT
+ * SIGN-IN // LOGAR // SAIR/SIGNOUT //PASSWORD RESET 
  */
 Route::get('/login', [
     'uses'=>'\App\Http\Controllers\AuthController@getLogin',
@@ -50,10 +50,18 @@ Route::post('/login', [
     'uses'=>'\App\Http\Controllers\AuthController@postLogin',
     'middleware'=>'guest'
 ]);
+
 Route::get('/signout', [
     'uses'=>'\App\Http\Controllers\AuthController@getSignout',
     'as'=>'auth.signout'
 ]);
+
+Route::get('/forget-password', 'ForgotPasswordController@getEmail')->name('auth.PasswordForget');
+Route::post('/forget-password', 'ForgotPasswordController@postEmail')->name('auth.PasswordForget');
+
+Route::get('/reset-password/{token}', 'ResetPasswordController@getPassword')->name('auth.PasswordReset');
+Route::post('/reset-password', 'ResetPasswordController@updatePassword')->name('auth.PasswordReset');
+
 /*
  * SEARCH // BUSCA
  */
@@ -68,9 +76,9 @@ Route::get('/user/{username}', [
     'uses'=>'\App\Http\Controllers\ProfileController@getProfile',
     'as'=>'profile.Perfil',
 ]);
-Route::get('/user/{username}/friends', [
+Route::get('/user/{username}/followers', [
     'uses'=>'\App\Http\Controllers\FriendController@getFriends',
-    'as'=>'profile.friends',
+    'as'=>'profile.Followers',
 ]);
 
 Route::get('/profile/edit', [
@@ -88,22 +96,22 @@ Route::post('/mudarBanner', 'ProfileController@atualizarBanner');
 /*
  * AMIGOS
  */
-Route::get('/friends', [
+Route::get('/followers', [
     'uses'=>'\App\Http\Controllers\FriendController@getIndex',
-    'as'=>'friends.Solicitações',
+    'as'=>'friends.Solicitacoes',
     'middleware'=>['auth'],
 ]);
-Route::get('/friends/add/{username}', [
+Route::get('/follow/add/{username}', [
     'uses'=>'\App\Http\Controllers\FriendController@getAdd',
     'as'=>'friends.add',
     'middleware'=>['auth'],
 ]);
-Route::get('/friends/accept/{username}', [
+Route::get('/follow/accept/{username}', [
     'uses'=>'\App\Http\Controllers\FriendController@getAccept',
     'as'=>'friends.accept',
     'middleware'=>['auth'],
 ]);
-Route::post('/friends/delete/{username}', [
+Route::post('/follow/delete/{username}', [
     'uses'=>'\App\Http\Controllers\FriendController@postDelete',
     'as'=>'friends.delete',
     'middleware'=>['auth'],
@@ -122,10 +130,20 @@ Route::post('/status/{statusId}/reply', [
     'middleware'=>['auth'],
 ]);
 Route::get('/status/{statusId}/like', [
-    'uses'=>'\App\Http\Controllers\StatusController@getLike',
+    'uses'=>'\App\Http\Controllers\StatusController@postLike',
     'as'=>'status.like',
     'middleware'=>['auth'],
 ]);
+Route::get('/status/{statusId}/likes', [
+    'uses'=>'\App\Http\Controllers\StatusController@getLike',
+]);
+
+//Route::group(['middleware' => 'auth'], function(){
+//Aí dentro de um group você coloca todas as rotas chamando diretamente
+//e nao precisa passar de uma em uma
+//Route::get('/josu-lindo','JosueController@EuSouLindo')->name('josue.de.paulo.duro');
+//})
+
 /*
  * CONFIGURAÇÕES
  */

@@ -2,11 +2,10 @@
 
 
 namespace App\Http\Controllers;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
-
+use App\Models\User;
 class ProfileController extends Controller
 {
     public function getProfile($username){
@@ -14,7 +13,7 @@ class ProfileController extends Controller
         if (!$user){
             abort(404);
         }
-        $status = $user->status()->notReply()->get();
+        $status = $user->status()->notReply()->withCount('likes')->get();
         $friends = Auth::user()->friends();
         $friendRequests = Auth::user()->friendRequests();
         $avatar = Auth::user()->getAvatar();
@@ -35,7 +34,7 @@ class ProfileController extends Controller
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time().'.'.$avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save('uploads/avatars/'.$filename);
+            Image::make($avatar)->resize(500,500)->save('uploads/avatars/'.$filename);
 
             $user = Auth::user();
             $user->avatar = $filename;

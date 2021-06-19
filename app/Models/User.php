@@ -141,7 +141,6 @@ class User extends Authenticatable
      */
     public function likes(){
         return $this->hasMany('App\Models\Like', 'user_id');
-
     }
 
     public function hasLikedStatus(Status $status)
